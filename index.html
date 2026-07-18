@@ -1,485 +1,573 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ArcherSFLUB :: Enrollment Experience Platform :: HOME</title>
+<title>ArcherSFLUB — Enrollment Experience Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#1F3A93; --teal:#17A2A2; --purple:#6B2FA0; --orange:#F26B21;
-  --lime:#A4D65E; --pink:#E6007E; --gold:#FFC20E; --blood:#C1121F; --green:#046A38;
+  --ink:#0B1220; --sub:#5B6472; --mute:#9AA3B2;
+  --bg:#EEF1F7; --card:#FFFFFF; --line:#E4E8F0;
+  --pri:#4F46E5; --pri-soft:#EEF0FF;
+  --green:#059669; --green-soft:#ECFDF5;
+  --red:#DC2626; --red-soft:#FEF2F2;
+  --amber:#D97706; --amber-soft:#FFFBEB;
+  --blue:#2563EB; --blue-soft:#EFF6FF;
+  --pink:#DB2777; --pink-soft:#FDF2F8;
+  --teal:#0D9488; --teal-soft:#F0FDFA;
+  --orange:#EA580C; --orange-soft:#FFF7ED;
+  --r:12px; --sh:0 1px 2px rgba(11,18,32,.04),0 1px 12px -4px rgba(11,18,32,.08);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{
-  font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#222;
-  background:
-    repeating-linear-gradient(135deg,rgba(255,255,255,.6) 0 14px,rgba(210,230,255,.6) 14px 28px),
-    linear-gradient(#dce9f7,#b9d2ee);
-  background-attachment:fixed;
-}
-h1,h2,h3{margin:0;font-family:Georgia,"Times New Roman",serif}
-p{margin:0 0 10px}
-a{color:#0033CC}
-.mono{font-family:"Courier New",monospace;font-weight:bold}
-.comic{font-family:"Comic Sans MS","Chalkboard SE",cursive}
-.xs{font-size:10px;color:#555;font-family:"Comic Sans MS",cursive;line-height:1.35}
-.mute{color:#555}
+body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);
+  color:var(--ink);font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em}
+p{margin:0 0 8px}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-variant-numeric:tabular-nums}
+.mute{color:var(--mute)}
+.sub{color:var(--sub)}
+.eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);
+  display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex:none;
+  box-shadow:0 0 0 3px var(--green-soft)}
 
-/* ── never-finishing progress ── */
-#gp{position:fixed;top:0;left:0;height:5px;z-index:400;width:0;transition:width .4s;
-  background:linear-gradient(90deg,var(--lime),var(--gold),var(--orange));border-bottom:1px solid #7a5}
+#gp{position:fixed;top:0;left:0;height:2.5px;background:var(--pri);width:0;z-index:400;transition:width .4s}
 
-/* ── MASTHEAD ── */
-#mast{background:linear-gradient(180deg,#3d63c9 0%,var(--navy) 45%,#122559 100%);
-  border-bottom:4px ridge var(--gold);padding:10px 16px;display:flex;align-items:center;gap:14px}
-#logo{cursor:pointer;display:flex;align-items:center;gap:10px}
-#logo .mk{width:44px;height:44px;background:radial-gradient(circle at 30% 25%,#fff,var(--lime) 40%,var(--green));
-  border:3px outset var(--gold);border-radius:50%;display:grid;place-items:center;
-  font-family:Impact,fantasy;font-size:24px;color:var(--blood);text-shadow:1px 1px 0 #fff}
-#bname{font-family:Impact,"Arial Black",fantasy;font-size:27px;color:var(--gold);letter-spacing:1px;
-  text-shadow:2px 2px 0 var(--blood),4px 4px 0 rgba(0,0,0,.4);text-transform:uppercase;line-height:1}
-#btag{font-family:Georgia,serif;font-style:italic;font-size:11px;color:var(--lime);text-shadow:1px 1px 0 #000}
-#mast .right{margin-left:auto;text-align:right;color:#fff;font-size:11px}
-#mast .right b{color:var(--gold)}
-.mbtn{font-family:"Comic Sans MS",cursive;font-size:11px;padding:3px 9px;border:2px outset var(--teal);
-  background:linear-gradient(#5fd0d0,var(--teal));color:#003;cursor:pointer;border-radius:9px}
+/* ═══ TOPBAR ═══ */
+#topbar{height:54px;background:var(--card);border-bottom:1px solid var(--line);display:flex;
+  align-items:center;gap:12px;padding:0 16px;position:sticky;top:0;z-index:100}
+#logo{display:flex;align-items:center;gap:9px;cursor:pointer;flex:none}
+.mk{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--pri),#8B5CF6);
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;flex:none}
+#bname{font-size:14.5px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+#btag{font-size:9.5px;color:var(--mute);font-weight:600}
+.envpill{font-size:9.5px;font-weight:700;background:var(--green-soft);color:var(--green);
+  padding:2px 8px;border-radius:99px;flex:none;letter-spacing:.02em}
+#gsearch{flex:1;max-width:340px;position:relative}
+#gsearch input{width:100%;font:inherit;font-size:12.5px;padding:7px 11px 7px 30px;border:1px solid var(--line);
+  border-radius:8px;background:var(--bg);color:var(--ink)}
+#gsearch::before{content:"⌕";position:absolute;left:10px;top:6px;color:var(--mute);font-size:14px}
+.topright{margin-left:auto;display:flex;align-items:center;gap:10px;flex:none}
+.iconbtn{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--card);
+  cursor:pointer;position:relative;display:grid;place-items:center;font-size:13px}
+.iconbtn .bd{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:8.5px;
+  font-weight:800;padding:1px 4px;border-radius:99px;border:1.5px solid #fff}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--blue));
+  display:grid;place-items:center;color:#fff;font-weight:700;font-size:11px;cursor:pointer;position:relative}
+.avatar::after{content:"";position:absolute;bottom:-1px;right:-1px;width:8px;height:8px;background:var(--green);
+  border-radius:50%;border:2px solid #fff}
 
-/* ── ticker ── */
-#tick{background:repeating-linear-gradient(90deg,var(--blood) 0 22px,#8e0d17 22px 44px);
-  color:var(--gold);font-family:Impact,fantasy;letter-spacing:1px;font-size:14px;
-  border-bottom:3px double #fff;padding:3px 0}
+/* ═══ SUBTABS ═══ */
+#subtabs{background:var(--card);border-bottom:1px solid var(--line);display:flex;gap:2px;
+  padding:0 16px;overflow-x:auto;position:sticky;top:54px;z-index:99}
+.tabx{font:inherit;font-size:12px;font-weight:600;color:var(--sub);background:none;border:0;
+  padding:10px 12px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex:none}
+.tabx:hover{color:var(--ink)}
+.tabx.on{color:var(--pri);border-bottom-color:var(--pri)}
+.tabx .mini{font-size:8.5px;background:var(--pink-soft);color:var(--pink);padding:1px 5px;
+  border-radius:99px;margin-left:5px;font-weight:800}
 
-/* ── migration notice ── */
-#migrate{background:linear-gradient(#fff8d0,#ffe98a);border-bottom:2px dashed var(--orange);
-  padding:6px 16px;font-size:11px;font-family:"Comic Sans MS",cursive;text-align:center;color:#6b4b00}
+/* ═══ migration + banners ═══ */
+#migrate{background:var(--amber-soft);border-bottom:1px solid #FDE68A;padding:6px 16px;font-size:11px;
+  color:#7C4A03;text-align:center;font-weight:600}
+#banners{position:sticky;top:88px;z-index:98}
+.ban{display:flex;gap:8px;align-items:flex-start;padding:8px 16px;font-size:11.5px;border-bottom:1px solid var(--line)}
+.ban b{font-weight:700}
+.ban .x{margin-left:auto;flex:none;border:0;background:none;color:var(--mute);cursor:pointer;font-size:15px;
+  line-height:1;padding:2px 5px;border-radius:5px}
+.ban .x:hover{background:rgba(0,0,0,.06)}
+.ban.info{background:var(--blue-soft);color:#1E3A8A}
+.ban.warn{background:var(--amber-soft);color:#78350F}
+.ban.bad{background:var(--red-soft);color:#7F1D1D}
+.ban.ok{background:var(--green-soft);color:#064E3B}
 
-/* ── banner stack (SIGNATURE) ── */
-#banners{position:sticky;top:0;z-index:100}
-.ban{display:flex;gap:8px;align-items:flex-start;padding:7px 14px;font-size:12px;
-  border-bottom:2px ridge #fff;animation:drop .2s ease;font-family:Tahoma,sans-serif}
-@keyframes drop{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
-.ban b{font-family:Georgia,serif;text-transform:uppercase;letter-spacing:.5px}
-.ban .ic{font-size:15px;flex:none;line-height:1.2}
-.ban .x{margin-left:auto;flex:none;border:2px outset #fff;background:linear-gradient(#eee,#bbb);
-  cursor:pointer;font-weight:bold;font-size:11px;padding:0 6px;font-family:"Courier New",monospace}
-.ban.info{background:linear-gradient(#dbeafe,#a9cbf7);color:#12306e}
-.ban.warn{background:linear-gradient(#fff3c4,#ffdd6b);color:#6b4b00}
-.ban.bad{background:linear-gradient(#ffd9dc,#ff9aa4);color:#7a0511}
-.ban.ok{background:linear-gradient(#d9f7e2,#93e6ae);color:#054d24}
+/* ═══ SHELL: three columns, always ═══ */
+.shell{display:flex;align-items:flex-start;gap:14px;padding:14px 16px 140px;max-width:1400px;margin:0 auto}
 
-/* ── shell ── */
-.shell{display:flex;align-items:flex-start;gap:0}
-aside{width:212px;flex:none;background:linear-gradient(180deg,var(--purple),#3d1a5e);
-  border-right:4px ridge var(--gold);padding:8px 6px 40px;min-height:100vh}
-.navlbl{font-family:Impact,fantasy;font-size:13px;color:var(--gold);letter-spacing:1px;
-  text-shadow:1px 1px 0 #000;padding:12px 6px 4px;border-bottom:2px dotted var(--lime);margin-bottom:5px}
-.nv{display:flex;align-items:center;gap:6px;width:100%;text-align:left;font-family:Tahoma,sans-serif;
-  font-size:12px;color:#fff;padding:6px 8px;margin-bottom:3px;cursor:pointer;
-  border:2px outset #9a6fc4;background:linear-gradient(#7f43b8,#5a2790);border-radius:4px}
-.nv:hover{background:linear-gradient(#a05fdd,#7239b0)}
-.nv.on{background:linear-gradient(var(--lime),#6fa832);color:#123;border-color:var(--gold);font-weight:bold}
-.nv .badge{margin-left:auto;background:var(--blood);color:#fff;font-size:10px;font-weight:bold;
-  padding:0 5px;border:1px solid #fff;border-radius:2px;font-family:"Courier New",monospace}
-.nv .lock{margin-left:auto;font-size:9px;color:var(--gold);font-family:"Comic Sans MS",cursive}
-.nv[disabled]{opacity:.55;cursor:not-allowed}
-#hitcount{margin-top:16px;text-align:center;color:var(--lime);font-family:"Courier New",monospace;font-size:10px}
-#hitcount span{background:#000;color:var(--lime);padding:2px 4px;border:1px inset #666;letter-spacing:2px}
+/* left nav */
+.navcol{width:210px;flex:none;display:flex;flex-direction:column;gap:10px}
+.navcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);
+  padding:8px}
+.navlbl{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);
+  padding:8px 8px 4px}
+.nv{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:none;
+  font:inherit;font-size:12.5px;font-weight:600;color:var(--sub);padding:7px 8px;border-radius:7px;cursor:pointer}
+.nv:hover{background:var(--bg)}
+.nv.on{background:var(--pri-soft);color:var(--pri)}
+.nv .badge{margin-left:auto;background:var(--red);color:#fff;font-size:9.5px;font-weight:800;
+  padding:1px 6px;border-radius:99px}
+.nv .lock{margin-left:auto;font-size:9px;color:var(--mute);font-weight:700;background:var(--bg);
+  padding:1px 5px;border-radius:5px}
+.nv[disabled]{opacity:.5;cursor:not-allowed}
+.progwidget{padding:11px}
+.ringwrap{display:flex;align-items:center;gap:10px}
+.ring{width:46px;height:46px;border-radius:50%;flex:none;
+  background:conic-gradient(var(--pri) 0 40%,var(--line) 40% 100%);display:grid;place-items:center}
+.ring i{width:32px;height:32px;border-radius:50%;background:#fff;display:grid;place-items:center;
+  font-size:10px;font-weight:800;font-style:normal}
+.adtile{background:linear-gradient(135deg,var(--pink-soft),var(--orange-soft));border:1px solid #FBCFE8;
+  border-radius:var(--r);padding:11px;cursor:pointer}
+.adtile .eyebrow{color:var(--pink)}
+.adtile .dot{background:var(--pink);box-shadow:0 0 0 3px var(--pink-soft)}
 
-main{flex:1;min-width:0;padding:14px 16px 140px;max-width:1040px}
+/* main */
+main{flex:1;min-width:0}
+.crumb{font-size:10.5px;color:var(--mute);margin-bottom:5px;font-weight:600}
+.head{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.head p{margin:2px 0 0;color:var(--sub);font-size:12.5px}
+.headright{margin-left:auto;display:flex;gap:8px}
 
-/* ── page header ── */
-.crumb{font-size:10px;color:#345;font-family:"Courier New",monospace;margin-bottom:5px}
-.phead{background:linear-gradient(180deg,var(--teal),#0c6f6f);border:3px outset var(--lime);
-  padding:9px 14px;margin-bottom:12px;border-radius:12px 12px 0 0}
-.phead h1{font-family:Impact,fantasy;font-size:25px;color:#fff;letter-spacing:1px;
-  text-shadow:2px 2px 0 var(--purple),3px 3px 0 rgba(0,0,0,.35)}
-.phead p{margin:2px 0 0;font-family:"Comic Sans MS",cursive;font-size:11px;color:var(--gold)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);
+  margin-bottom:12px;overflow:hidden}
+.panel>header{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.panel>header h2{font-size:13px}
+.panel>header .xs{margin-left:auto;font-size:10.5px;color:var(--mute);font-weight:600}
+.pad{padding:14px}
 
-/* ── panels ── */
-.panel{background:#fff;border:3px ridge #b9c6d8;margin-bottom:14px;
-  box-shadow:5px 5px 0 rgba(31,58,147,.25)}
-.panel > header{background:linear-gradient(180deg,var(--gold),var(--orange));
-  border-bottom:3px groove #fff;padding:6px 12px;display:flex;align-items:center;gap:10px}
-.panel > header h2{font-family:Georgia,serif;font-style:italic;font-weight:bold;font-size:15px;
-  color:#4a1d00;text-transform:uppercase;text-shadow:1px 1px 0 #ffe9a8}
-.panel > header .xs{margin-left:auto;color:#5c2c00}
-.pad{padding:12px}
+/* hero KPI row */
+.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.hcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:13px}
+.hcard .top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.chip{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:13px;flex:none}
+.hcard .lbl{font-size:11px;font-weight:700;color:var(--sub)}
+.hcard .val{font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:5px}
+.hcard .foot{display:flex;align-items:center;justify-content:space-between}
+.trend{font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:99px}
+.trend.up{background:var(--green-soft);color:var(--green)}
+.trend.down{background:var(--red-soft);color:var(--red)}
 
-/* ── stats ── */
-.grid{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));margin-bottom:14px}
-.stat{border:3px outset #ccd;padding:9px;text-align:center}
-.stat:nth-child(1){background:linear-gradient(#e8fbe8,#bde8bd)}
-.stat:nth-child(2){background:linear-gradient(#fff0f8,#ffc4e2)}
-.stat:nth-child(3){background:linear-gradient(#fff8e0,#ffe08a)}
-.stat:nth-child(4){background:linear-gradient(#e6f0ff,#b6cffb)}
-.stat .k{font-family:"Comic Sans MS",cursive;font-size:10px;color:#444;margin-bottom:3px}
-.stat .v{font-family:"Courier New",monospace;font-size:23px;font-weight:bold;color:var(--blood);
-  text-shadow:1px 1px 0 #fff}
+/* dense small tile grid */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}
+.tile .lbl{font-size:10px;color:var(--sub);font-weight:700;margin-bottom:3px}
+.tile .val{font-size:15px;font-weight:800;font-family:ui-monospace,monospace}
+.tile .badge{font-size:9px;font-weight:800;padding:1px 5px;border-radius:99px;margin-left:5px}
 
-/* ── forms ── */
-label{display:block;font-family:Georgia,serif;font-weight:bold;font-size:12px;margin-bottom:4px;color:#1a2b4a}
-input[type=text],input[type=password],select{width:100%;font-family:"Courier New",monospace;font-size:13px;
-  padding:5px 7px;border:3px inset #b9c6d8;background:#ffffe8}
+label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
+input[type=text],input[type=password],select{width:100%;font:inherit;font-size:13px;padding:8px 11px;
+  border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
 input[type=range]{width:100%}
-input:focus,select:focus,button:focus-visible{outline:3px solid var(--pink);outline-offset:1px}
-.field{margin-bottom:12px}
-.hint{font-family:"Comic Sans MS",cursive;font-size:10px;color:#666;margin-top:4px}
-.bad-hint{font-family:Impact,fantasy;letter-spacing:.5px;color:var(--blood);font-size:14px;margin-top:5px}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--pri);outline-offset:1px}
+.field{margin-bottom:13px}
+.hint{font-size:11px;color:var(--mute);margin-top:5px}
+.bad-hint{color:var(--red);font-size:12px;font-weight:700;margin-top:6px}
 
-/* ── buttons: every one is a different mistake ── */
-.btn{font-family:"Comic Sans MS",cursive;font-size:12px;padding:6px 13px;cursor:pointer;
-  border:3px outset #ddd;background:linear-gradient(#fdfdfd,#c9c9c9);color:#111;border-radius:7px}
-.btn:hover{filter:brightness(1.07)}
-.btn:active{border-style:inset}
-.btn.pri{font-family:Impact,fantasy;letter-spacing:1px;font-size:15px;padding:7px 18px;color:#fff;
-  background:linear-gradient(#7fd94f,var(--green));border:4px outset var(--lime);border-radius:20px;
-  text-shadow:1px 1px 0 #003}
-.btn.sm{font-size:10px;padding:3px 8px;border-radius:2px;background:linear-gradient(#fff,#ccc)}
-.btn.alt{background:linear-gradient(#ff9ecb,var(--pink));color:#fff;border-color:#ffc2e0;border-radius:0}
-.btn.ghost{border:2px dotted #888;background:none;border-radius:0;font-size:10px}
+.btn{font:inherit;font-size:12.5px;font-weight:700;padding:8px 15px;border-radius:8px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn:hover{background:var(--bg)}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.sm{padding:5px 10px;font-size:11.5px;border-radius:7px}
+.btn.ghost{border-color:transparent;color:var(--sub)}
 
-/* ── tables ── */
-table{width:100%;border-collapse:collapse;font-size:12px;border:3px ridge #99a}
-th{background:linear-gradient(180deg,var(--purple),#3d1a5e);color:var(--gold);font-family:Impact,fantasy;
-  letter-spacing:.5px;font-size:12px;text-align:left;padding:6px 9px;border:1px solid #fff}
-td{padding:6px 9px;border:1px solid #b8c4d4;font-family:Tahoma,sans-serif}
-tbody tr:nth-child(odd) td{background:#eaffd9}
-tbody tr:nth-child(even) td{background:#ffeaf6}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--mute);
+  font-weight:800;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--bg)}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:99px}
+.pill.g{background:var(--green-soft);color:var(--green)}
+.pill.r{background:var(--red-soft);color:var(--red)}
+.pill.a{background:var(--amber-soft);color:var(--amber)}
 
-.pill{display:inline-block;font-family:Impact,fantasy;font-size:11px;letter-spacing:.5px;
-  padding:2px 8px;border:2px outset #fff;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.4)}
-.pill.g{background:linear-gradient(#7fd94f,var(--green))}
-.pill.r{background:linear-gradient(#ff6b75,var(--blood))}
-.pill.a{background:linear-gradient(#ffd34f,var(--orange))}
-
-/* ── stepper ── */
-.stepper{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:12px}
-.st{display:flex;align-items:center;gap:5px;font-size:10px;font-family:Tahoma,sans-serif;
-  padding:4px 8px;border:2px outset #ccd;background:linear-gradient(#fafafa,#d4d4d4);color:#556}
-.st .n{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:9px;
-  font-weight:bold;background:#fff;border:2px inset #aab}
-.st.done{background:linear-gradient(#b6f0c5,#5cbf7d);color:#043}
+.stepper{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.st{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 10px;
+  border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--mute)}
+.st .n{width:16px;height:16px;border-radius:50%;background:var(--bg);display:grid;place-items:center;
+  font-size:9px;font-weight:800}
+.st.done{background:var(--green-soft);border-color:transparent;color:var(--green)}
 .st.done .n{background:var(--green);color:#fff}
-.st.now{background:linear-gradient(var(--gold),var(--orange));color:#4a1d00;font-weight:bold}
-.st.now .n{background:#fff;color:var(--blood)}
+.st.now{background:var(--pri-soft);border-color:transparent;color:var(--pri)}
+.st.now .n{background:var(--pri);color:#fff}
 
-/* ── sponsored ── */
-.spon{border:4px ridge var(--pink);background:linear-gradient(90deg,#fff0f8,#ffe1c9,#fff9d6);
-  padding:9px 12px;display:flex;gap:10px;align-items:center;cursor:pointer;margin-bottom:13px}
-.spon .tag{font-family:"Courier New",monospace;font-size:9px;background:#000;color:var(--lime);
-  padding:2px 5px;flex:none;letter-spacing:1px}
-.spon b{font-family:Georgia,serif;font-size:14px;color:var(--purple);text-shadow:1px 1px 0 #fff}
-.spon .arw{margin-left:auto;font-family:Impact,fantasy;font-size:19px;color:var(--blood)}
+.spon{border:1px solid #FBCFE8;background:linear-gradient(90deg,var(--pink-soft),var(--orange-soft));
+  border-radius:var(--r);padding:11px 13px;display:flex;gap:10px;align-items:center;cursor:pointer;margin-bottom:12px}
+.spon .tag{font-size:9px;font-weight:800;letter-spacing:.04em;background:var(--pink);color:#fff;
+  padding:2px 7px;border-radius:99px;flex:none}
+.spon b{font-size:12.5px}
+.spon .arw{margin-left:auto;color:var(--pink);font-weight:800}
 
-/* ── modal ── */
-#scrim{position:fixed;inset:0;background:rgba(20,10,50,.55);z-index:300;display:none;
-  align-items:flex-start;justify-content:center;padding:11vh 14px}
+/* right rail */
+.railcol{width:264px;flex:none;display:flex;flex-direction:column;gap:10px}
+.act{display:flex;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.act:last-child{border-bottom:0}
+.act .d{width:6px;height:6px;border-radius:50%;margin-top:5px;flex:none}
+.act .t{font-size:9.5px;color:var(--mute);margin-top:2px}
+.lb{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+.lb:last-child{border-bottom:0}
+.lb .r{width:18px;height:18px;border-radius:5px;background:var(--bg);display:grid;place-items:center;
+  font-size:9.5px;font-weight:800;color:var(--sub);flex:none}
+.lb .n{font-size:12px;font-weight:700;flex:1}
+.lb .s{font-size:11px;font-weight:800;font-family:ui-monospace,monospace}
+.stat-dot{width:8px;height:8px;border-radius:50%;flex:none}
+.sysrow{display:flex;align-items:center;gap:7px;padding:5px 0;font-size:11.5px}
+.sysrow .nm{flex:1}
+.check{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12px}
+.check:last-child{border-bottom:0}
+.check input{width:auto;margin-top:2px}
+.insight{background:linear-gradient(135deg,var(--pri-soft),var(--pink-soft));border:1px solid #DDD6FE;
+  border-radius:10px;padding:10px;font-size:11.5px;line-height:1.4}
+.insight .eyebrow{color:var(--pri)}
+.insight .dot{background:var(--pri);box-shadow:0 0 0 3px var(--pri-soft)}
+
+/* ═══ modal / loading / toasts / tour / chat / nps ═══ */
+#scrim{position:fixed;inset:0;background:rgba(11,18,32,.45);z-index:300;display:none;
+  align-items:flex-start;justify-content:center;padding:12vh 16px;backdrop-filter:blur(2px)}
 #scrim.on{display:flex}
-.dlg{background:linear-gradient(#fff,#e9eefb);border:5px ridge var(--gold);max-width:430px;width:100%;
-  box-shadow:9px 9px 0 rgba(0,0,0,.35)}
-.dlg .top{background:linear-gradient(180deg,var(--blood),#7a0511);padding:6px 12px}
-.dlg .top h2{font-family:Impact,fantasy;font-size:17px;color:var(--gold);letter-spacing:1px;
-  text-shadow:1px 1px 0 #000}
-.dlg .pad{padding:16px}
-.dlg .pad p{font-family:Tahoma,sans-serif;font-size:13px;margin:0}
-.dlg .foot{display:flex;align-items:center;padding:11px 16px;
-  background:repeating-linear-gradient(45deg,#eee 0 8px,#e2e2e2 8px 16px);border-top:3px groove #fff}
-.dlg .foot .tiny-yes{margin-left:auto;font-family:Tahoma,sans-serif;font-size:9px;color:#8a8a8a;
-  background:none;border:0;cursor:pointer;text-decoration:underline;padding:3px}
+.dlg{background:var(--card);border-radius:14px;max-width:420px;width:100%;
+  box-shadow:0 24px 60px -12px rgba(11,18,32,.35);overflow:hidden}
+.dlg .pad{padding:20px}
+.dlg h2{margin-bottom:7px;font-size:16px}
+.dlg .pad p{font-size:13px;color:var(--sub);margin:0}
+.dlg .foot{display:flex;align-items:center;gap:8px;padding:13px 20px;background:var(--bg);border-top:1px solid var(--line)}
+.dlg .foot .tiny-yes{margin-left:auto;font-size:10px;color:var(--mute);background:none;border:0;
+  cursor:pointer;text-decoration:underline;padding:4px}
 
-/* ── loading ── */
-#load{position:fixed;inset:0;background:rgba(31,58,147,.75);z-index:410;display:none;
-  flex-direction:column;align-items:center;justify-content:center;gap:12px}
+#load{position:fixed;inset:0;background:rgba(238,241,247,.9);z-index:410;display:none;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;backdrop-filter:blur(3px)}
 #load.on{display:flex}
-.sp{width:52px;height:52px;border:9px solid var(--gold);border-top-color:var(--pink);
-  border-radius:50%;animation:sp .55s linear infinite}
+.sp{width:24px;height:24px;border:2.5px solid var(--line);border-top-color:var(--pri);border-radius:50%;
+  animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-#loadmsg{font-family:Impact,fantasy;font-size:19px;color:var(--gold);letter-spacing:1px;
-  text-shadow:2px 2px 0 var(--blood)}
-#loadsub{font-family:"Comic Sans MS",cursive;font-size:11px;color:#fff}
+#loadmsg{font-size:12.5px;color:var(--sub);font-weight:600}
 
-/* ── toasts ── */
-#toasts{position:fixed;top:10px;right:10px;z-index:250;display:flex;flex-direction:column;gap:6px;
-  width:275px;max-height:86vh;overflow:hidden;pointer-events:none}
-.toast{background:linear-gradient(#fffbe8,#ffe9a8);border:3px outset var(--gold);
-  border-left:7px solid var(--orange);padding:8px 10px;font-family:Tahoma,sans-serif;font-size:11.5px;
-  box-shadow:4px 4px 0 rgba(0,0,0,.25);animation:sl .2s ease;pointer-events:auto}
-@keyframes sl{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+#toasts{position:fixed;top:96px;right:14px;z-index:250;display:flex;flex-direction:column;gap:7px;
+  width:280px;max-height:80vh;overflow:hidden;pointer-events:none}
+.toast{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--pri);border-radius:9px;
+  padding:9px 11px;box-shadow:var(--sh);font-size:11.5px;pointer-events:auto}
 
-/* ── tour ── */
-#tour{position:fixed;z-index:260;width:245px;display:none;
-  background:linear-gradient(#fffde0,#ffe98a);border:4px ridge var(--purple);
-  padding:11px 13px;box-shadow:6px 6px 0 rgba(0,0,0,.3);font-family:"Comic Sans MS",cursive;font-size:11.5px}
+#tour{position:fixed;z-index:260;background:var(--ink);color:#fff;border-radius:10px;padding:12px 14px;
+  width:230px;box-shadow:0 12px 32px -8px rgba(11,18,32,.5);font-size:11.5px;display:none}
 #tour.on{display:block}
+#tour .btn{background:#fff;border-color:#fff;color:var(--ink);margin-top:8px}
 
-/* ── chat ── */
-#chat{position:fixed;right:12px;bottom:12px;z-index:240;width:290px;display:none;
-  background:#fff;border:4px ridge var(--teal);box-shadow:7px 7px 0 rgba(0,0,0,.3)}
+#chat{position:fixed;right:14px;bottom:14px;z-index:240;width:288px;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 40px -12px rgba(11,18,32,.28);
+  overflow:hidden;display:none}
 #chat.on{display:block}
-#chat header{background:linear-gradient(180deg,#5fd0d0,#0c6f6f);padding:7px 11px;display:flex;
-  align-items:center;gap:7px;font-family:Impact,fantasy;font-size:15px;color:var(--gold);letter-spacing:1px}
-#chat header button{margin-left:auto;background:linear-gradient(#eee,#bbb);border:2px outset #fff;
-  cursor:pointer;font-family:"Courier New",monospace;font-weight:bold;padding:0 6px}
-#chatlog{padding:10px;height:142px;overflow:auto;display:flex;flex-direction:column;gap:6px;
-  background:repeating-linear-gradient(0deg,#f4fbff 0 22px,#e9f4ff 22px 44px)}
-.msg{font-size:11.5px;padding:6px 9px;max-width:86%;font-family:Tahoma,sans-serif;border:2px outset #ddd}
-.msg.bot{background:#fff;align-self:flex-start;border-radius:0 10px 10px 10px}
-.msg.me{background:linear-gradient(#a4e37a,#6fa832);align-self:flex-end;border-radius:10px 0 10px 10px}
-#chatbar{display:flex;gap:5px;padding:8px;border-top:3px groove #fff;background:#dfe9f5}
-#chatbar input{flex:1;font-size:11.5px;padding:5px 7px}
+#chat header{background:var(--pri);color:#fff;padding:10px 13px;display:flex;align-items:center;gap:7px;
+  font-size:12.5px;font-weight:700}
+#chat header button{margin-left:auto;background:none;border:0;color:#fff;cursor:pointer;font-size:16px}
+#chatlog{padding:10px;height:140px;overflow:auto;display:flex;flex-direction:column;gap:7px}
+.msg{font-size:11.5px;padding:7px 9px;border-radius:9px;max-width:85%}
+.msg.bot{background:var(--bg);align-self:flex-start}
+.msg.me{background:var(--pri);color:#fff;align-self:flex-end}
+#chatbar{display:flex;gap:6px;padding:9px;border-top:1px solid var(--line)}
+#chatbar input{flex:1;font-size:11.5px;padding:6px 8px}
 
-/* ── NPS ── */
-#nps{position:fixed;left:12px;bottom:12px;z-index:230;width:280px;display:none;padding:13px;
-  background:linear-gradient(#ffeef8,#ffc4e2);border:4px ridge var(--pink);box-shadow:6px 6px 0 rgba(0,0,0,.3)}
+#nps{position:fixed;left:14px;bottom:14px;z-index:230;width:270px;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:14px;display:none}
 #nps.on{display:block}
-#nps h3{font-family:Georgia,serif;font-size:13px;font-style:italic;color:#7a0552}
-.scale{display:flex;gap:2px;margin:9px 0 4px;flex-wrap:wrap}
-.scale button{flex:1;min-width:20px;font-family:"Courier New",monospace;font-size:11px;font-weight:bold;
-  padding:5px 0;border:2px outset #fff;background:linear-gradient(#fff,#ddd);cursor:pointer}
-.scale button:hover{background:linear-gradient(var(--gold),var(--orange))}
+.scale{display:flex;gap:3px;margin:9px 0 4px;flex-wrap:wrap}
+.scale button{flex:1;min-width:20px;font:inherit;font-size:10.5px;font-weight:700;padding:5px 0;
+  border:1px solid var(--line);background:var(--card);border-radius:6px;cursor:pointer}
+.scale button:hover{border-color:var(--pri);color:var(--pri)}
 
 .view{display:none}.view.on{display:block}
-@media(max-width:830px){aside{display:none}main{padding:10px}}
+@media(max-width:1180px){.railcol{display:none}}
+@media(max-width:840px){.navcol{display:none}.shell{padding:12px}.hero,.tiles{grid-template-columns:repeat(2,1fr)}}
 </style>
 
 <div id="gp"></div>
 
-<div id="mast">
+<header id="topbar">
   <div id="logo"><div class="mk">A</div>
     <div><div id="bname">ArcherSFLUB</div><div id="btag">Enrollment Experience Platform</div></div></div>
-  <div class="right">
-    Logged in as <b id="mastuser">GUEST</b><br>
-    <button class="mbtn" onclick="toast('Classic View is the view you are using.')">Switch to Classic View</button>
+  <span class="envpill">PRODUCTION</span>
+  <div id="gsearch"><input type="text" placeholder="Search anything…"
+    onfocus="toast('Global search is coming soon. It has been coming soon since 2019.');this.blur()"></div>
+  <div class="topright">
+    <button class="iconbtn" onclick="toast('You have 203 notifications. None of them are important.')">🔔<span class="bd">203</span></button>
+    <button class="iconbtn" onclick="toast('Quick actions unavailable in this build.')">⚡</button>
+    <div class="avatar" id="avbtn" onclick="toast('Account menu unavailable.')">A</div>
   </div>
-</div>
+</header>
 
-<marquee id="tick" scrollamount="11">ENROLLMENT IS OPEN &nbsp;***&nbsp; ENROLLMENT IS CLOSED &nbsp;***&nbsp; PLEASE DO NOT REFRESH &nbsp;***&nbsp; REFRESHING IS THE ONLY FIX &nbsp;***&nbsp; SYSTEM STATUS: MISSED &nbsp;***&nbsp; YOUR ARROWS ARE IMPORTANT TO US &nbsp;***</marquee>
+<nav id="subtabs" id="subtabs">
+  <button class="tabx on">Overview</button>
+  <button class="tabx" onclick="toast('Analytics tab is not part of this rollout.')">Analytics</button>
+  <button class="tabx" onclick="toast('Insights tab requires a plan upgrade.')">Insights <span class="mini">AI</span></button>
+  <button class="tabx" onclick="toast('Activity tab failed to load.')">Activity</button>
+  <button class="tabx" onclick="toast('Automations are in closed beta.')">Automations <span class="mini">BETA</span></button>
+  <button class="tabx" onclick="toast('Reports are generated nightly. Tonight failed.')">Reports</button>
+  <button class="tabx" onclick="toast('Integrations page moved. We forgot where.')">Integrations</button>
+  <button class="tabx" onclick="toast('Settings are managed by a separate system. That system is also ArcherSFLUB.')">Settings</button>
+</nav>
 
-<div id="migrate">You are viewing the <b>NEW EXPERIENCE</b> (partial rollout, 2016). Some pages have not been migrated. Neither have some buttons.</div>
-
+<div id="migrate">You are viewing the <b>NEW EXPERIENCE</b> (partial rollout, 2024). Some widgets have not been migrated. Neither have some buttons.</div>
 <div id="banners"></div>
 
 <div class="shell">
-<aside>
-  <div class="navlbl">Enrollment</div>
-  <button class="nv on" data-v="dash" onclick="nav('dash')">Overview <span class="badge">47</span></button>
-  <button class="nv" data-v="search" onclick="nav('search')">Course Discovery</button>
-  <button class="nv" data-v="quiver" onclick="nav('quiver')">My Quiver <span class="badge cartn">0</span></button>
-  <button class="nv" data-v="checkout" onclick="nav('checkout')">Firing Line</button>
+<aside class="navcol">
+  <div class="navcard">
+    <div class="navlbl">Enrollment</div>
+    <button class="nv on" data-v="dash" onclick="nav('dash')">📊 Overview <span class="badge">47</span></button>
+    <button class="nv" data-v="search" onclick="nav('search')">🎯 Course Discovery</button>
+    <button class="nv" data-v="quiver" onclick="nav('quiver')">🏹 My Quiver <span class="badge cartn">0</span></button>
+    <button class="nv" data-v="checkout" onclick="nav('checkout')">💳 Firing Line</button>
+    <div class="navlbl">Academics</div>
+    <button class="nv" disabled>Degree Audit <span class="lock">Q3</span></button>
+    <button class="nv" disabled>Transcripts <span class="lock">Q3</span></button>
+    <button class="nv" disabled>Advising <span class="lock">Q4</span></button>
+    <button class="nv" disabled>Range Analytics <span class="lock">2027</span></button>
+    <div class="navlbl">Account</div>
+    <button class="nv" onclick="toast('Billing is handled by a separate system. That system is also ArcherSFLUB.')">Billing <span class="badge">12</span></button>
+    <button class="nv" onclick="toast('Sign-out is unavailable. Your session will end on its own. It will not.')">Sign out</button>
+  </div>
 
-  <div class="navlbl">Academics</div>
-  <button class="nv" disabled>Degree Audit <span class="lock">Q3</span></button>
-  <button class="nv" disabled>Transcripts <span class="lock">Q3</span></button>
-  <button class="nv" disabled>Advising <span class="lock">Q4</span></button>
-  <button class="nv" disabled>Grade Appeals <span class="lock">Q4</span></button>
-  <button class="nv" disabled>Range Analytics <span class="lock">2027</span></button>
+  <div class="navcard progwidget">
+    <div class="eyebrow"><span class="dot"></span>PROFILE COMPLETENESS</div>
+    <div class="ringwrap">
+      <div class="ring"><i>40%</i></div>
+      <div style="font-size:11px;color:var(--sub)">3 of 8 sections done. The other 5 do not exist yet.</div>
+    </div>
+  </div>
 
-  <div class="navlbl">Account</div>
-  <button class="nv" onclick="toast('Billing is handled by a separate system. That system is also ArcherSFLUB.')">Billing <span class="badge">12</span></button>
-  <button class="nv" onclick="toast('Notification settings have been reset to default.')">Notifications <span class="badge">203</span></button>
-  <button class="nv" onclick="toast('Sign-out is unavailable. Your session will end on its own. It will not.')">Sign Out</button>
-
-  <div id="hitcount">VISITOR NUMBER<br><span id="hits">0000000</span></div>
+  <div class="adtile" onclick="rick()">
+    <div class="eyebrow"><span class="dot"></span>SPONSORED</div>
+    <b style="font-size:12px">Download more arrows — completely free</b>
+  </div>
 </aside>
 
 <main>
 
-<!-- ═════ WIZARD ═════ -->
+<!-- ══════════ WIZARD ══════════ -->
 <div class="view on" id="wiz">
-  <div class="crumb">HOME &gt; ONBOARDING &gt; ARCHER VERIFICATION</div>
-  <div class="phead"><h1>Verify Your Archer Profile</h1>
-    <p>Seven steps. Most are required. We will tell you which ones later.</p></div>
+  <div class="crumb">HOME / ONBOARDING / ARCHER VERIFICATION</div>
+  <div class="head"><div><h1>Verify your archer profile</h1>
+    <p>Seven steps. Most of them are required. We'll tell you which ones later.</p></div></div>
   <div class="stepper" id="stepper"></div>
 
-  <div class="panel wstep on" id="w1"><header><h2>Legal Name</h2><span class="xs">Step 1 of 7 (of 12)</span></header>
+  <div class="panel wstep on" id="w1"><header><h2>Legal name</h2><span class="xs">Step 1 of 7 (of 12)</span></header>
   <div class="pad"><div class="field">
     <label for="name">Full legal name</label>
     <input type="text" id="name" autocomplete="off" placeholder="As engraved on your bow">
     <div class="hint">Validated in real time by our Aim Assist engine.</div>
     <div class="bad-hint" id="nameerr"></div></div>
-    <button class="btn pri" onclick="go(2)">CONTINUE</button></div></div>
+    <button class="btn pri" onclick="go(2)">Continue</button></div></div>
 
-  <div class="panel wstep" id="w2"><header><h2>Date of Birth</h2><span class="xs">Step 2 of 7 (of 12)</span></header>
+  <div class="panel wstep" id="w2"><header><h2>Date of birth</h2><span class="xs">Step 2 of 7 (of 12)</span></header>
   <div class="pad">
     <div class="field"><label>Year</label>
       <div style="display:flex;align-items:center;gap:9px">
-        <span class="mono" id="yr" style="font-size:24px;color:var(--blood)">1900</span>
-        <button class="btn sm" onclick="yr(1)">+1</button><button class="btn sm" onclick="yr(-1)">-1</button></div>
-      <div class="hint">Bulk year selection is disabled. An archer takes one shot at a time.</div></div>
+        <span class="mono" id="yr" style="font-size:20px;font-weight:800">1900</span>
+        <button class="btn sm" onclick="yr(1)">+1</button><button class="btn sm" onclick="yr(-1)">−1</button></div>
+      <div class="hint">Bulk year selection disabled. An archer takes one shot at a time.</div></div>
     <div style="display:flex;gap:10px">
       <div class="field" style="flex:1"><label>Month</label><select id="mo"></select></div>
       <div class="field" style="flex:1"><label>Day</label><select id="dy"></select></div></div>
     <div class="bad-hint" id="dober"></div>
-    <button class="btn pri" onclick="go(3)">CONTINUE</button></div></div>
+    <button class="btn pri" onclick="go(3)">Continue</button></div></div>
 
-  <div class="panel wstep" id="w3"><header><h2>Create A Bowstring</h2><span class="xs">Step 3 of 7 (of 12)</span></header>
+  <div class="panel wstep" id="w3"><header><h2>Create a bowstring</h2><span class="xs">Step 3 of 7 (of 12)</span></header>
   <div class="pad">
     <div class="field"><label for="pw">Bowstring (password)</label><input type="password" id="pw">
       <div class="hint">Requirements regenerate per keystroke to account for crosswind.</div></div>
-    <div style="background:repeating-linear-gradient(45deg,#fffbe8 0 10px,#fff6d0 10px 20px);
-      border:3px inset var(--gold);padding:10px 12px;margin-bottom:12px">
-      <div style="font-family:Impact,fantasy;font-size:13px;color:var(--blood);letter-spacing:1px">REQUIREMENTS</div>
-      <ul id="rules" style="margin:6px 0 0;padding-left:18px;font-size:12px;font-family:Tahoma,sans-serif"></ul></div>
+    <div style="background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-bottom:13px">
+      <div class="eyebrow"><span class="dot" style="background:var(--amber);box-shadow:0 0 0 3px var(--amber-soft)"></span>REQUIREMENTS</div>
+      <ul id="rules" style="margin:6px 0 0;padding-left:17px;font-size:12px"></ul></div>
     <div class="bad-hint" id="pwer"></div>
-    <button class="btn pri" onclick="go(4)">CONTINUE</button></div></div>
+    <button class="btn pri" onclick="go(4)">Continue</button></div></div>
 
-  <div class="panel wstep" id="w4"><header><h2>Terms Of The Range</h2><span class="xs">Step 4 of 7 (of 12)</span></header>
+  <div class="panel wstep" id="w4"><header><h2>Terms of the range</h2><span class="xs">Step 4 of 7 (of 12)</span></header>
   <div class="pad">
-    <div id="tos" style="height:54px;overflow-y:scroll;border:3px inset #b9c6d8;padding:8px 10px;
-      font-family:'Courier New',monospace;font-size:10.5px;background:#ffffe8;white-space:pre-wrap"></div>
-    <div class="hint" style="margin-bottom:10px">Scroll position may be re-sighted for accuracy.</div>
-    <label style="display:flex;gap:7px;align-items:flex-start;font-family:Tahoma,sans-serif;
-      font-weight:normal;font-size:12px">
+    <div id="tos" style="height:54px;overflow-y:scroll;border:1px solid var(--line);border-radius:8px;
+      padding:9px 11px;font-size:11px;color:var(--sub);background:var(--bg);white-space:pre-wrap"></div>
+    <div class="hint" style="margin-bottom:11px">Scroll position may be re-sighted for accuracy.</div>
+    <label style="display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:12.5px">
       <input type="checkbox" id="agree" disabled style="width:auto;margin-top:2px">
       <span>I have read all 40,000 words of the Terms of the Range.</span></label>
-    <div style="height:12px"></div>
-    <button class="btn pri" onclick="go(5)">CONTINUE</button></div></div>
+    <div style="height:13px"></div>
+    <button class="btn pri" onclick="go(5)">Continue</button></div></div>
 
-  <div class="panel wstep" id="w5"><header><h2>Squad Size</h2><span class="xs">Step 5 of 7 (of 12)</span></header>
+  <div class="panel wstep" id="w5"><header><h2>Squad size</h2><span class="xs">Step 5 of 7 (of 12)</span></header>
   <div class="pad"><div class="field">
-    <label>How many archers in your squad? (2&ndash;4)</label>
+    <label>How many archers in your squad? (2–4)</label>
     <input type="range" id="sz" min="1" max="1000" value="500">
-    <div style="margin-top:6px;font-family:Tahoma,sans-serif;font-size:12px">Selected:
-      <span class="mono" id="szv" style="font-size:21px;color:var(--blood)">500</span> archers</div>
+    <div style="margin-top:8px">Selected: <span class="mono" id="szv" style="font-size:19px;font-weight:800">500</span> archers</div>
     <div class="hint">Adaptive magnetic sighting is enabled.</div>
     <div class="bad-hint" id="szer"></div></div>
-    <button class="btn pri" onclick="go(6)">CONTINUE</button></div></div>
+    <button class="btn pri" onclick="go(6)">Continue</button></div></div>
 
-  <div class="panel wstep" id="w6"><header><h2>Bullseye Verification</h2><span class="xs">Step 6 of 7 (of 12)</span></header>
+  <div class="panel wstep" id="w6"><header><h2>Bullseye verification</h2><span class="xs">Step 6 of 7 (of 12)</span></header>
   <div class="pad">
-    <p style="font-family:Tahoma,sans-serif;font-size:12px">Type the code below <b>backwards</b>, in <b>UPPERCASE</b>.</p>
-    <div id="cap" class="mono" style="font-size:28px;letter-spacing:9px;background:#111;color:#1a1a1a;
-      padding:13px;text-align:center;border:4px inset #555;margin-bottom:7px">loading</div>
-    <div class="hint" style="margin-bottom:10px">Can't see the target? That's expected.
-      <a href="#" onclick="revealCap();return false">Illuminate the target</a></div>
-    <div class="field"><input type="text" id="capin" placeholder="Your answer">
-      <div class="bad-hint" id="caper"></div></div>
-    <button class="btn pri" onclick="go(7)">CONTINUE</button></div></div>
+    <p class="sub" style="font-size:12.5px">Type the code below <b>backwards</b>, in <b>uppercase</b>.</p>
+    <div id="cap" class="mono" style="font-size:24px;letter-spacing:8px;background:#0B1220;color:#141c2b;
+      padding:13px;border-radius:8px;text-align:center;margin-bottom:8px">loading</div>
+    <div class="hint" style="margin-bottom:11px">Can't see the target? That's expected.
+      <a href="#" onclick="revealCap();return false" style="color:var(--pri)">Illuminate the target</a></div>
+    <div class="field"><input type="text" id="capin" placeholder="Your answer"><div class="bad-hint" id="caper"></div></div>
+    <button class="btn pri" onclick="go(7)">Continue</button></div></div>
 
   <div class="panel wstep" id="w7"><header><h2>Release</h2><span class="xs">Step 7 of 7 (of 12)</span></header>
-  <div class="pad" style="position:relative;overflow:hidden;min-height:145px">
-    <p style="font-family:Tahoma,sans-serif;font-size:12px">Your profile is ready. Release the string to enter the platform.</p>
-    <button class="btn pri" id="rel" style="position:relative">RELEASE THE STRING</button>
+  <div class="pad" style="position:relative;overflow:hidden;min-height:140px">
+    <p class="sub" style="font-size:12.5px">Your profile is ready. Release the string to enter the platform.</p>
+    <button class="btn pri" id="rel" style="position:relative">Release the string</button>
     <div class="hint">Please do not release more than 0 times.</div>
-    <div style="height:14px;border:2px inset #aab;background:#eee;margin-top:12px">
-      <div id="bar" style="height:100%;width:0;background:repeating-linear-gradient(90deg,var(--lime) 0 9px,var(--green) 9px 18px)"></div></div>
-    <div class="xs" id="relstat"></div></div></div>
+    <div style="height:6px;background:var(--line);border-radius:99px;margin-top:15px;overflow:hidden">
+      <div id="bar" style="height:100%;width:0;background:var(--pri);transition:width .12s"></div></div>
+    <div class="xs" id="relstat" style="margin-top:7px;font-size:11px;color:var(--mute)"></div></div></div>
 </div>
 
-<!-- ═════ OVERVIEW ═════ -->
+<!-- ══════════ OVERVIEW ══════════ -->
 <div class="view" id="dash">
-  <div class="crumb">HOME &gt; ENROLLMENT &gt; OVERVIEW</div>
-  <div class="phead"><h1>Welcome Back, <span id="whoami">Archer</span>!</h1>
-    <p>Term A.Y. 2026&ndash;2027 &middot; Enrollment window is <span id="winstat">open</span></p></div>
+  <div class="crumb">HOME / ENROLLMENT / OVERVIEW</div>
+  <div class="head"><div><h1>Good <span id="tod">day</span>, <span id="whoami">Archer</span></h1>
+    <p>Term A.Y. 2026–2027 · Window is <span id="winstat">open</span></p></div>
+    <div class="headright"><button class="btn sm" onclick="toast('Export is generating. It will generate forever.')">Export</button>
+      <button class="btn sm pri" onclick="nav('search')">+ Nock a course</button></div></div>
 
-  <div class="spon" onclick="rick()"><span class="tag">AD</span>
-    <b>Download more arrows &mdash; completely free!</b><span class="arw">&raquo;</span></div>
+  <div class="spon" onclick="rick()"><span class="tag">SPONSORED</span>
+    <b>Congratulations! Claim 999 free arrows</b><span class="arw">→</span></div>
 
-  <div class="grid">
-    <div class="stat"><div class="k">Accuracy rating</div><div class="v" id="acc">--</div></div>
-    <div class="stat"><div class="k">Arrows remaining</div><div class="v" id="arrows">--</div></div>
-    <div class="stat"><div class="k">Outstanding balance</div><div class="v" id="bal">--</div></div>
-    <div class="stat"><div class="k">Units enrolled</div><div class="v">0</div></div>
+  <div class="hero">
+    <div class="hcard"><div class="top"><div class="chip" style="background:var(--green-soft)">🎯</div>
+      <div class="lbl">Accuracy rating</div></div>
+      <div class="val" id="acc">—</div>
+      <div class="foot"><span id="accspark"></span><span class="trend up" id="acctrend">+0%</span></div></div>
+    <div class="hcard"><div class="top"><div class="chip" style="background:var(--red-soft)">🏹</div>
+      <div class="lbl">Arrows remaining</div></div>
+      <div class="val" id="arrows">—</div>
+      <div class="foot"><span id="arwspark"></span><span class="trend down">−100%</span></div></div>
+    <div class="hcard"><div class="top"><div class="chip" style="background:var(--amber-soft)">💰</div>
+      <div class="lbl">Outstanding balance</div></div>
+      <div class="val" id="bal">—</div>
+      <div class="foot"><span id="balspark"></span><span class="trend up">+∞%</span></div></div>
+    <div class="hcard"><div class="top"><div class="chip" style="background:var(--blue-soft)">📚</div>
+      <div class="lbl">Units enrolled</div></div>
+      <div class="val">0</div>
+      <div class="foot"><span class="mute" style="font-size:10.5px">No change</span><span class="trend up">0%</span></div></div>
   </div>
 
-  <div class="panel"><header><h2>Enrollment Status</h2><span class="xs">Auto-refreshing</span></header>
+  <div class="tiles" id="tiles"></div>
+
+  <div class="panel"><header><h2>Enrollment status</h2><span class="xs">Auto-refreshing</span></header>
   <div class="pad">
-    <div style="display:flex;gap:9px;align-items:center;margin-bottom:9px">
-      <span class="pill a" id="estat">IN FLIGHT</span>
-      <span class="xs">Last updated <span id="ago">0</span> seconds ago</span></div>
-    <div style="height:16px;border:2px inset #aab;background:#eee">
-      <div id="dbar" style="height:100%;width:33%;background:repeating-linear-gradient(90deg,var(--gold) 0 9px,var(--orange) 9px 18px)"></div></div>
-    <div class="xs" style="margin-top:6px">Your enrollment is 33% complete. It has been 33% complete since March.</div>
+    <div style="display:flex;gap:9px;align-items:center;margin-bottom:11px">
+      <span class="pill a" id="estat">In flight</span>
+      <span class="xs">Last updated <span id="ago">0</span>s ago</span></div>
+    <div style="height:6px;background:var(--line);border-radius:99px;overflow:hidden">
+      <div style="height:100%;width:33%;background:var(--amber)"></div></div>
+    <div class="xs" style="margin-top:7px;color:var(--mute)">33% complete. It has been 33% complete since March.</div>
   </div></div>
+
+  <div class="panel"><header><h2>System status</h2><span class="xs">6 services</span></header>
+    <div class="pad" id="sysgrid"></div></div>
 
   <div class="panel"><header><h2>Announcements</h2><span class="xs">8 unread</span></header>
     <div id="anns"></div></div>
-
-  <button class="btn pri" onclick="nav('search')">BROWSE COURSES</button>
 </div>
 
-<!-- ═════ SEARCH ═════ -->
+<!-- ══════════ SEARCH ══════════ -->
 <div class="view" id="search">
-  <div class="crumb">HOME &gt; ENROLLMENT &gt; COURSE DISCOVERY</div>
-  <div class="phead"><h1>Course Discovery</h1>
-    <p>Find your target. Aim carefully &mdash; partial aim is not supported.</p></div>
-
-  <div class="spon" onclick="rick()"><span class="tag">AD</span>
-    <b>Local registrar reveals one weird scheduling trick!</b><span class="arw">&raquo;</span></div>
-
+  <div class="crumb">HOME / ENROLLMENT / COURSE DISCOVERY</div>
+  <div class="head"><div><h1>Course discovery</h1><p>Find your target. Partial aim is not supported.</p></div></div>
+  <div class="spon" onclick="rick()"><span class="tag">SPONSORED</span>
+    <b>Local registrar reveals one weird scheduling trick</b><span class="arw">→</span></div>
   <div class="panel"><header><h2>Search</h2></header>
   <div class="pad">
     <div class="field"><label for="q">Course code</label>
-      <div style="display:flex;gap:7px"><input type="text" id="q" placeholder="e.g. CCPROG1-S17A" style="flex:1">
-        <button class="btn pri" onclick="doSearch()">TAKE AIM</button></div>
-      <div class="hint">Requires the exact, case-sensitive, complete course code. Partial matches, keywords,
-        and course titles are not supported. We are aware. It is not prioritized.</div></div>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:Tahoma,sans-serif;font-size:12px">
-      <label style="font-weight:normal;display:flex;gap:6px;align-items:center;font-family:Tahoma,sans-serif">
-        <input type="checkbox" id="fuzzy" style="width:auto"> Enable Aim Assist <span class="xs">(no effect)</span></label>
-      <label style="font-weight:normal;display:flex;gap:6px;align-items:center;font-family:Tahoma,sans-serif">
-        <input type="checkbox" id="avail" checked style="width:auto"> Available only <span class="xs">(shows unavailable only)</span></label></div>
+      <div style="display:flex;gap:8px"><input type="text" id="q" placeholder="e.g. CCPROG1-S17A" style="flex:1">
+        <button class="btn pri" onclick="doSearch()">Take aim</button></div>
+      <div class="hint">Requires the exact, case-sensitive, complete course code. We're aware. It's not prioritized.</div></div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px">
+      <label style="font-weight:400;display:flex;gap:6px;align-items:center">
+        <input type="checkbox" id="fuzzy" style="width:auto"> Aim Assist <span class="hint" style="margin:0">(no effect)</span></label>
+      <label style="font-weight:400;display:flex;gap:6px;align-items:center">
+        <input type="checkbox" id="avail" checked style="width:auto"> Available only <span class="hint" style="margin:0">(shows unavailable only)</span></label></div>
     <div style="height:12px"></div>
-    <button class="btn alt" onclick="showAll()">SURVEY THE ENTIRE RANGE</button>
+    <button class="btn" onclick="showAll()">Survey the entire range</button>
   </div></div>
   <div id="results"></div>
 </div>
 
-<!-- ═════ QUIVER ═════ -->
+<!-- ══════════ QUIVER ══════════ -->
 <div class="view" id="quiver">
-  <div class="crumb">HOME &gt; ENROLLMENT &gt; MY QUIVER</div>
-  <div class="phead"><h1>My Quiver</h1><p>Review your nocked courses before proceeding to the firing line.</p></div>
-  <div class="spon" onclick="rick()"><span class="tag">AD</span>
-    <b>Your quiver may be at risk &mdash; run a free scan!</b><span class="arw">&raquo;</span></div>
-  <div class="panel"><header><h2>Nocked Courses</h2><span class="xs cartn">0</span></header><div id="qbox"></div></div>
+  <div class="crumb">HOME / ENROLLMENT / MY QUIVER</div>
+  <div class="head"><div><h1>My quiver</h1><p>Review your nocked courses before the firing line.</p></div></div>
+  <div class="spon" onclick="rick()"><span class="tag">SPONSORED</span>
+    <b>Your quiver may be at risk — run a free scan</b><span class="arw">→</span></div>
+  <div class="panel"><header><h2>Nocked courses</h2><span class="xs cartn">0</span></header><div id="qbox"></div></div>
   <div class="panel"><header><h2>Summary</h2></header><div class="pad" id="sumbox"></div></div>
 </div>
 
-<!-- ═════ CHECKOUT ═════ -->
+<!-- ══════════ CHECKOUT ══════════ -->
 <div class="view" id="checkout">
-  <div class="crumb">HOME &gt; ENROLLMENT &gt; FIRING LINE</div>
-  <div class="phead"><h1>Firing Line</h1><p>Confirm payment and release. This is the final step. There are two more.</p></div>
+  <div class="crumb">HOME / ENROLLMENT / FIRING LINE</div>
+  <div class="head"><div><h1>Firing line</h1><p>Confirm payment and release. Final step. There are two more.</p></div></div>
   <div class="panel"><header><h2>Payment</h2><span class="xs">Secured (unverified)</span></header>
   <div class="pad" style="position:relative;overflow:hidden">
     <div class="field"><label for="cc">Card number</label><input type="text" id="cc" placeholder="Formatted automatically">
       <div class="hint">Automatic formatting cannot be disabled.</div></div>
     <div class="field"><label>Expiry year</label>
       <div style="display:flex;gap:9px;align-items:center">
-        <span class="mono" id="exp" style="font-size:21px;color:var(--blood)">2000</span>
-        <button class="btn sm" onclick="expy(1)">+1</button><button class="btn sm" onclick="expy(-1)">-1</button></div></div>
+        <span class="mono" id="exp" style="font-size:19px;font-weight:800">2000</span>
+        <button class="btn sm" onclick="expy(1)">+1</button><button class="btn sm" onclick="expy(-1)">−1</button></div></div>
     <div class="field" style="max-width:140px"><label for="cvv">CVV</label>
       <input type="text" id="cvv" maxlength="3"><div class="hint">Must be 4 digits.</div></div>
-    <label style="display:flex;gap:7px;align-items:flex-start;font-family:Tahoma,sans-serif;font-weight:normal;
-      font-size:12px;margin-bottom:13px"><input type="checkbox" id="fin" style="width:auto;margin-top:2px">
-      <span>My aim is true and my information is correct.</span></label>
-    <button class="btn pri" id="pay" style="position:relative">FIRE</button>
-    <div style="height:14px;border:2px inset #aab;background:#eee;margin-top:12px">
-      <div id="bar2" style="height:100%;width:0;background:repeating-linear-gradient(90deg,var(--lime) 0 9px,var(--green) 9px 18px)"></div></div>
-    <div class="xs" id="paystat"></div>
+    <label style="display:flex;gap:7px;align-items:flex-start;font-weight:400;font-size:12.5px;margin-bottom:15px">
+      <input type="checkbox" id="fin" style="width:auto;margin-top:2px"><span>My aim is true and my information is correct.</span></label>
+    <button class="btn pri" id="pay" style="position:relative">Fire</button>
+    <div style="height:6px;background:var(--line);border-radius:99px;margin-top:15px;overflow:hidden">
+      <div id="bar2" style="height:100%;width:0;background:var(--pri);transition:width .13s"></div></div>
+    <div class="xs" id="paystat" style="margin-top:8px;font-size:11px"></div>
   </div></div>
+  <div class="panel"><header><h2>Recommended add-ons</h2><span class="xs">Based on your quiver</span></header>
+    <div class="pad" id="addons"></div></div>
 </div>
 
 </main>
+
+<aside class="railcol">
+  <div class="navcard">
+    <div class="eyebrow"><span class="dot" style="background:var(--pri);box-shadow:0 0 0 3px var(--pri-soft)"></span>AI INSIGHT</div>
+    <div class="insight" id="insightbox">Analyzing your enrollment patterns…</div>
+  </div>
+
+  <div class="navcard">
+    <div class="eyebrow"><span class="dot" style="background:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)"></span>ACTIVITY FEED</div>
+    <div id="feed"></div>
+  </div>
+
+  <div class="navcard">
+    <div class="eyebrow"><span class="dot" style="background:var(--amber);box-shadow:0 0 0 3px var(--amber-soft)"></span>TOP ARCHERS THIS WEEK</div>
+    <div id="board"></div>
+  </div>
+
+  <div class="navcard">
+    <div class="eyebrow"><span class="dot" style="background:var(--green);box-shadow:0 0 0 3px var(--green-soft)"></span>SUGGESTED ACTIONS</div>
+    <div id="checklist"></div>
+  </div>
+
+  <div class="adtile" onclick="rick()">
+    <div class="eyebrow"><span class="dot"></span>UPGRADE</div>
+    <b style="font-size:12px">Unlock ArcherSFLUB Pro</b>
+    <div class="hint" style="margin-top:4px">Get a second, differently wrong dashboard.</div>
+    <button class="btn sm pri" style="margin-top:8px;width:100%" onclick="upsell()">Upgrade now</button>
+  </div>
+</aside>
+
 </div>
 
 <div id="toasts"></div>
 <div id="tour"></div>
 
 <div id="nps">
-  <h3>How likely are you to recommend ArcherSFLUB to a fellow archer?</h3>
+  <h3 style="font-size:13px">How likely are you to recommend ArcherSFLUB?</h3>
   <div class="scale" id="npsScale"></div>
-  <div style="display:flex;justify-content:space-between" class="xs"><span>Not likely</span><span>Very likely</span></div>
-  <div style="margin-top:8px"><button class="btn ghost" onclick="npsLater()">Ask me later</button></div>
+  <div style="display:flex;justify-content:space-between" class="hint"><span>Not likely</span><span>Very likely</span></div>
+  <div style="margin-top:9px"><button class="btn sm ghost" onclick="npsLater()">Ask me later</button></div>
 </div>
 
 <div id="chat">
-  <header><span>FLETCHER ASSIST</span><button onclick="chatOff()">X</button></header>
+  <header><span>Fletcher Assist</span><button onclick="chatOff()">×</button></header>
   <div id="chatlog"></div>
-  <div id="chatbar"><input type="text" id="chatin" placeholder="Ask anything">
-    <button class="btn sm" onclick="chatSend()">SEND</button></div>
+  <div id="chatbar"><input type="text" id="chatin" placeholder="Ask anything"><button class="btn sm pri" onclick="chatSend()">Send</button></div>
 </div>
 
 <div id="scrim"></div>
-<div id="load"><div class="sp"></div><div id="loadmsg"></div><div id="loadsub">please do not close this window</div></div>
+<div id="load"><div class="sp"></div><div id="loadmsg"></div></div>
 
 <script>
 var $=function(i){return document.getElementById(i)};
@@ -487,55 +575,41 @@ function rick(){window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blan
 
 var gpv=0;setInterval(function(){gpv=Math.min(gpv+Math.random()*7,94);$('gp').style.width=gpv+'%';},900);
 
-var hits=1000000;
-setInterval(function(){hits+=Math.floor(Math.random()*3)-1;
-  $('hits').textContent=String(hits).padStart(7,'0');},700);
-
-/* ═══ banner stack ═══ */
-var BANS=[
- ['warn','!','Scheduled maintenance','The platform will be unavailable during the enrollment window.'],
- ['info','i','New: Aim Assist (beta)','Aim Assist is now available. Aim Assist is not implemented.'],
- ['bad','X','Degraded performance','Course Discovery is responding slowly. Engineering is aware and has gone home.'],
- ['ok','+','You are using v0.4','A previous version of this banner was accurate.'],
- ['warn','!','Session notice','Your session expires soon. Extending it will end it.'],
- ['info','i','Cookies','We and 1,847 partners use cookies. Managing preferences enables all of them.'],
- ['bad','X','Payment on file','No payment method is on file. A payment has been taken.'],
- ['warn','!','Advisory','Enrollment opened yesterday and closes yesterday.'],
- ['info','i','Survey','Tell us how we are doing. We will not read it.'],
- ['ok','+','Incident resolved','The incident was resolved. The incident is ongoing.'],
- ['bad','X','Action required','No action is available.'],
- ['warn','!','Browser notice','Your browser is supported. Support ends in 4 minutes.']];
-var bi=0;
-function addBan(){
-  var b=BANS[bi++%BANS.length],d=document.createElement('div');
-  d.className='ban '+b[0];
-  d.innerHTML='<span class="ic">['+b[1]+']</span><div><b>'+b[2]+'</b> &mdash; '+b[3]+'</div>';
-  var x=document.createElement('button');x.className='x';x.textContent='X';
-  x.onclick=function(){d.remove();setTimeout(addBan,300);if(Math.random()<.55)setTimeout(addBan,700);};
-  d.appendChild(x);$('banners').appendChild(d);
-}
-for(var i=0;i<4;i++)addBan();
-setInterval(function(){if($('banners').children.length<9)addBan();},11000);
-
 /* ═══ identity crisis ═══ */
 var brands=['ArcherSFLUB','ArcherSNUB','ArcherSTUB','ArcherSHRUG','ArcherSCRUB','ArcherSUB'];
-var tags=['Enrollment Experience Platform','Student Success Infrastructure',
- 'Unified Academic Journey Cloud','Enrollment Orchestration Suite','Next-Gen Registrar Fabric'];
-setInterval(function(){
-  $('bname').textContent=brands[Math.floor(Math.random()*brands.length)];
+var tags=['Enrollment Experience Platform','Student Success Infrastructure','Unified Academic Journey Cloud',
+ 'Enrollment Orchestration Suite','Next-Gen Registrar Fabric'];
+setInterval(function(){$('bname').textContent=brands[Math.floor(Math.random()*brands.length)];
   $('btag').textContent=tags[Math.floor(Math.random()*tags.length)];
-  document.title=$('bname').textContent+' :: '+$('btag').textContent+' :: HOME';},9000);
+  document.title=$('bname').textContent+' — '+$('btag').textContent;},9000);
+
+/* ═══ banner stack ═══ */
+var BANS=[['warn','Scheduled maintenance','The platform will be unavailable during the enrollment window.'],
+ ['info','New: Aim Assist (beta)','Aim Assist is now available. Aim Assist is not implemented.'],
+ ['bad','Degraded performance','Course Discovery is responding slowly. Engineering is aware and has gone home.'],
+ ['ok','You are using v0.4','A previous version of this banner was accurate.'],
+ ['warn','Session notice','Your session expires soon. Extending it will end it.'],
+ ['info','Cookies','We and 1,847 partners use cookies. Managing preferences enables all of them.'],
+ ['bad','Payment on file','No payment method is on file. A payment has been taken.'],
+ ['warn','Advisory','Enrollment opened yesterday and closes yesterday.'],
+ ['info','Survey','Tell us how we are doing. We will not read it.'],
+ ['ok','Incident resolved','The incident was resolved. The incident is ongoing.']];
+var bi=0;
+function addBan(){var b=BANS[bi++%BANS.length],d=document.createElement('div');
+  d.className='ban '+b[0];d.innerHTML='<div><b>'+b[1]+'</b> — '+b[2]+'</div>';
+  var x=document.createElement('button');x.className='x';x.textContent='×';
+  x.onclick=function(){d.remove();setTimeout(addBan,300);if(Math.random()<.55)setTimeout(addBan,700);};
+  d.appendChild(x);$('banners').appendChild(d);}
+for(var i=0;i<3;i++)addBan();
+setInterval(function(){if($('banners').children.length<7)addBan();},12000);
 
 /* ═══ loading ═══ */
-var LM=['DRAWING THE BOWSTRING','ADJUSTING FOR CROSSWIND','LOCATING THE TARGET',
- 'TARGET RELOCATED - LOCATING AGAIN','RE-FLETCHING YOUR REQUEST','CONSULTING THE RANGE OFFICER',
- 'APPLYING BUSINESS LOGIC','ALMOST ON TARGET','STILL ALMOST ON TARGET','VALIDATING YOUR VALIDATION',
- 'WARMING THE CACHE','COOLING THE CACHE'];
-function lag(cb){
-  $('load').classList.add('on');var n=0;$('loadmsg').textContent=LM[0];
+var LM=['Drawing the bowstring…','Adjusting for crosswind…','Locating the target…','Target relocated — locating again…',
+ 're-fletching your request…','Consulting the range officer…','Applying business logic…','Almost on target…',
+ 'Still almost on target…','Warming the cache…','Cooling the cache…'];
+function lag(cb){$('load').classList.add('on');var n=0;$('loadmsg').textContent=LM[0];
   var iv=setInterval(function(){n++;$('loadmsg').textContent=LM[n%LM.length]},600);
-  setTimeout(function(){clearInterval(iv);$('load').classList.remove('on');cb();},1500+Math.random()*2400);
-}
+  setTimeout(function(){clearInterval(iv);$('load').classList.remove('on');cb();},1500+Math.random()*2200);}
 
 /* ═══ confirmation chain ═══ */
 var Q1=['Continue to the next step?','Proceed with this action?','Commit to this shot?'];
@@ -543,88 +617,72 @@ var Q2=['Are you certain? Arrows are not refundable.','Please confirm once more.
 var Q3=['This cannot be undone. (It can be undone.)','Final confirmation. Probably.','Last chance to reconsider your degree.'];
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 function dialog(title,body,yes,onYes){
-  $('scrim').innerHTML='<div class="dlg"><div class="top"><h2>'+title+'</h2></div>'+
-   '<div class="pad"><p>'+body+'</p></div>'+
-   '<div class="foot"><button class="btn pri" id="dno">GO BACK</button>'+
-   '<button class="tiny-yes" id="dyes">'+yes+'</button></div></div>';
+  $('scrim').innerHTML='<div class="dlg"><div class="pad"><h2>'+title+'</h2><p>'+body+'</p></div>'+
+   '<div class="foot"><button class="btn pri" id="dno">Go back</button><button class="tiny-yes" id="dyes">'+yes+'</button></div></div>';
   $('scrim').classList.add('on');
   $('dno').onclick=function(){$('scrim').classList.remove('on')};
-  $('dyes').onclick=function(){$('scrim').classList.remove('on');onYes()};
-}
+  $('dyes').onclick=function(){$('scrim').classList.remove('on');onYes()};}
 function confirmChain(done){
-  dialog('CONFIRM',pick(Q1),'continue anyway',function(){
-    dialog('CONFIRM AGAIN',pick(Q2),'yes, continue',function(){
-      dialog('FINAL CONFIRMATION',pick(Q3),'I understand',done);});});
-}
+  dialog('Confirm',pick(Q1),'continue anyway',function(){
+    dialog('Confirm again',pick(Q2),'yes, continue',function(){
+      dialog('Final confirmation',pick(Q3),'I understand',done);});});}
 
 /* ═══ toasts ═══ */
 function toast(t){var d=document.createElement('div');d.className='toast';d.textContent=t;
-  $('toasts').appendChild(d);setTimeout(function(){d.remove()},9000);}
+  $('toasts').appendChild(d);setTimeout(function(){d.remove()},8000);}
 var AMB=['Preferences saved.','Preferences reverted.','Sync complete.','Sync failed. Retrying.',
- 'A course in your quiver changed sections.','Your adviser is now unavailable.',
- 'Tuition estimate updated.','A schedule conflict was detected and ignored.',
- 'Session extended by 0 seconds.','Someone else is viewing your quiver.'];
+ 'A course in your quiver changed sections.','Your adviser is now unavailable.','Tuition estimate updated.',
+ 'A schedule conflict was detected and ignored.','Session extended by 0 seconds.','Someone else is viewing your quiver.'];
 setInterval(function(){if(Math.random()<.5)toast(AMB[Math.floor(Math.random()*AMB.length)])},8000);
 
 /* ═══ nav ═══ */
 var cur='wiz';
-function paint(id){
-  var v=document.querySelectorAll('.view');
+function paint(id){var v=document.querySelectorAll('.view');
   for(var i=0;i<v.length;i++)v[i].classList.remove('on');
   $(id).classList.add('on');cur=id;
   var n=document.querySelectorAll('.nv[data-v]');
   for(var i=0;i<n.length;i++)n[i].classList.toggle('on',n[i].getAttribute('data-v')===id);
-  window.scrollTo(0,0);
-}
+  window.scrollTo(0,0);}
 function nav(id){confirmChain(function(){lag(function(){
   if(id==='quiver')renderQuiver();
-  if(id==='checkout'&&!cartArr.length)toast('Your quiver is empty. Proceeding to payment regardless.');
+  if(id==='checkout')renderAddons();
   paint(id);});});}
 
 /* ═══ wizard ═══ */
 var step=1;
-function drawStepper(){var s='';
-  for(var i=1;i<=7;i++)s+='<div class="st '+(i<step?'done':i===step?'now':'')+'"><span class="n">'+
-    (i<step?'\u2713':i)+'</span>Step '+i+'</div>';
-  $('stepper').innerHTML=s;}
+function drawStepper(){var s='';for(var i=1;i<=7;i++)s+='<div class="st '+(i<step?'done':i===step?'now':'')+'"><span class="n">'+
+  (i<step?'✓':i)+'</span>Step '+i+'</div>';$('stepper').innerHTML=s;}
 drawStepper();
-function showStep(n){var w=document.querySelectorAll('.wstep');
-  for(var i=0;i<w.length;i++)w[i].classList.remove('on');
+function showStep(n){var w=document.querySelectorAll('.wstep');for(var i=0;i<w.length;i++)w[i].classList.remove('on');
   $('w'+n).classList.add('on');step=n;drawStepper();window.scrollTo(0,0);}
-function go(n){
-  if(!validate(step))return;
+function go(n){if(!validate(step))return;
   confirmChain(function(){lag(function(){
     if(Math.random()<.18){toast('Your request missed the server (0x0000). Returned to the previous step.');
       return showStep(Math.max(1,step-1));}
-    showStep(n);});});
-}
+    showStep(n);});});}
 
 var real='';
-$('name').addEventListener('keydown',function(e){
-  e.preventDefault();
+$('name').addEventListener('keydown',function(e){e.preventDefault();
   if(e.key==='Backspace')real=real.slice(1);
   else if(e.key.length===1){var p=Math.floor(Math.random()*(real.length+1));
     real=real.slice(0,p)+e.key.toUpperCase()+real.slice(p);}
   e.target.value=real;});
 
 var year=1900;
-function yr(d){year+=d;
-  if(year>2026){year=1900;toast('Year overflow. Reset to 1900.');}
+function yr(d){year+=d;if(year>2026){year=1900;toast('Year overflow. Reset to 1900.');}
   if(Math.random()<.10){year=1900;toast('The calendar service drifted. Year reset to 1900.');}
   $('yr').textContent=year;}
-var msn=['--','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].sort(function(){return Math.random()-.5});
+var msn=['—','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].sort(function(){return Math.random()-.5});
 for(var i=0;i<msn.length;i++)$('mo').add(new Option(msn[i],msn[i]));
 for(var i=1;i<=31;i++)$('dy').add(new Option(i,i));
 $('dy').addEventListener('change',function(){if(Math.random()<.4){this.selectedIndex=0;toast('Invalid day for the selected month.');}});
 
-var POOL=['At least 8 characters','No more than 6 characters','Must contain a number',
- 'Must not contain a number','Must contain a Roman numeral','Must not contain the letter "e"',
- 'Prime number of characters','Must reference the Green Archer without naming him',
- 'Cannot match a previously used bowstring (all bowstrings are previously used)',
- 'Exactly one (1) and zero (0) capital letters','Must not be guessable by your future self',
- 'Must be memorable and must not be memorable'];
+var POOL=['At least 8 characters','No more than 6 characters','Must contain a number','Must not contain a number',
+ 'Must contain a Roman numeral','Must not contain the letter "e"','Prime number of characters',
+ 'Must reference the Green Archer without naming him','Cannot match a previously used bowstring (all bowstrings are previously used)',
+ 'Exactly one (1) and zero (0) capital letters','Must not be guessable by your future self'];
 function newRules(){var p=POOL.slice().sort(function(){return Math.random()-.5}).slice(0,5),s='';
-  for(var i=0;i<p.length;i++)s+='<li style="color:'+(Math.random()<.5?'var(--green)':'var(--blood)')+'">'+p[i]+'</li>';
+  for(var i=0;i<p.length;i++)s+='<li style="color:'+(Math.random()<.5?'var(--green)':'var(--red)')+'">'+p[i]+'</li>';
   $('rules').innerHTML=s;}
 newRules();
 $('pw').addEventListener('input',function(){if(Math.random()<.4)newRules()});
@@ -632,10 +690,8 @@ var pwTries=0;
 
 var tx='';for(var i=1;i<=200;i++)tx+=i+'. The Range reserves the right to reserve rights, including this one. Nocking an arrow implies consent to clause '+(i+1)+', which does not yet exist.\n';
 $('tos').textContent=tx;
-$('tos').addEventListener('scroll',function(){var el=this;
-  if(Math.random()<.25)el.scrollTop=0;
-  if(el.scrollTop+el.clientHeight>=el.scrollHeight-2){
-    $('agree').disabled=false;
+$('tos').addEventListener('scroll',function(){var el=this;if(Math.random()<.25)el.scrollTop=0;
+  if(el.scrollTop+el.clientHeight>=el.scrollHeight-2){$('agree').disabled=false;
     setTimeout(function(){if(!$('agree').checked){$('agree').disabled=true;el.scrollTop=0;}},2500);}});
 
 $('sz').addEventListener('input',function(){var v=+this.value;
@@ -645,77 +701,131 @@ $('sz').addEventListener('input',function(){var v=+this.value;
 var capText='';
 function newCap(){capText=Math.random().toString(36).slice(2,7);$('cap').textContent=capText;}
 newCap();
-function revealCap(){$('cap').style.color='#7CFC00';
-  setTimeout(function(){$('cap').style.color='#1a1a1a';newCap();$('capin').value='';},800);}
+function revealCap(){$('cap').style.color='#fff';setTimeout(function(){$('cap').style.color='#141c2b';newCap();$('capin').value='';},800);}
 
 function er(id,m){$(id).textContent=m}
 function validate(n){
-  if(n===1){if(real.length<2){er('nameerr','ENTER YOUR LEGAL NAME TO CONTINUE.');return false}er('nameerr','');return true}
-  if(n===2){if(year!==2005){er('dober','ARCHERS MUST BE EXACTLY 21. YOU ARE CURRENTLY '+(2026-year)+'.');return false}er('dober','');return true}
-  if(n===3){if(!$('pw').value){er('pwer','ENTER A BOWSTRING TO CONTINUE.');return false}
-    pwTries++;
-    if(pwTries<3){er('pwer','REJECTED. REQUIREMENT '+(pwTries+2)+' CHANGED WHILE YOU WERE READING IT.');newRules();return false}
+  if(n===1){if(real.length<2){er('nameerr','Enter your legal name to continue.');return false}er('nameerr','');return true}
+  if(n===2){if(year!==2005){er('dober','Archers must be exactly 21. You are currently '+(2026-year)+'.');return false}er('dober','');return true}
+  if(n===3){if(!$('pw').value){er('pwer','Enter a bowstring to continue.');return false}
+    pwTries++;if(pwTries<3){er('pwer','Rejected. Requirement '+(pwTries+2)+' changed while you were reading it.');newRules();return false}
     er('pwer','');return true}
   if(n===4){if(!$('agree').checked){toast('You must read the Terms of the Range.');return false}return true}
-  if(n===5){var v=+$('sz').value;if(v<2||v>4){er('szer','SQUAD SIZE MUST BE 2-4. YOU SELECTED '+v+'.');return false}er('szer','');return true}
+  if(n===5){var v=+$('sz').value;if(v<2||v>4){er('szer','Squad size must be 2–4. You selected '+v+'.');return false}er('szer','');return true}
   if(n===6){var want=capText.split('').reverse().join('').toUpperCase();
-    if($('capin').value!==want){er('caper','MISSED. A NEW TARGET HAS BEEN GENERATED.');newCap();$('capin').value='';return false}
+    if($('capin').value!==want){er('caper','Missed. A new target has been generated.');newCap();$('capin').value='';return false}
     er('caper','');return true}
-  return true;
-}
+  return true;}
 
 var rel=$('rel'),flees=0;
 rel.addEventListener('mouseover',function(){if(flees<8){flees++;
-  rel.style.left=(Math.random()*300-150)+'px';rel.style.top=(Math.random()*100-50)+'px';}});
-rel.addEventListener('click',function(){
-  var p=0;$('relstat').textContent='Arrow in flight...';
+  rel.style.left=(Math.random()*300-150)+'px';rel.style.top=(Math.random()*90-45)+'px';}});
+rel.addEventListener('click',function(){var p=0;$('relstat').textContent='Arrow in flight…';
   var iv=setInterval(function(){p+=Math.random()*9;
     if(p>=100){clearInterval(iv);$('bar').style.width='100%';$('relstat').textContent='Profile verified.';
-      setTimeout(function(){$('whoami').textContent=real||'Archer';$('mastuser').textContent=real||'ARCHER';
-        paint('dash');startDash();},800);}
+      setTimeout(function(){$('whoami').textContent=real||'Archer';paint('dash');startDash();},800);}
     $('bar').style.width=Math.min(p,100)+'%';},110);});
+
+/* ═══ sparkline helper ═══ */
+function spark(color){var w=56,h=20,pts=[];
+  for(var i=0;i<7;i++)pts.push((i/6*w).toFixed(1)+','+((h-3)-Math.random()*(h-6)).toFixed(1));
+  return '<svg width="'+w+'" height="'+h+'"><polyline points="'+pts.join(' ')+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
 
 /* ═══ overview ═══ */
 var started=false;
+var TILES=[['Range temp','—°','g'],['Active archers','—','b'],['Queue position','—','r'],
+ ['Server mood','—','a'],['Wind speed','—','t'],['Target uptime','—','g'],['Fletching cost','—','o'],['Bow tension','—','p']];
+var TCOL={g:['var(--green)','var(--green-soft)'],b:['var(--blue)','var(--blue-soft)'],r:['var(--red)','var(--red-soft)'],
+ a:['var(--amber)','var(--amber-soft)'],t:['var(--teal)','var(--teal-soft)'],o:['var(--orange)','var(--orange-soft)'],
+ p:['var(--pink)','var(--pink-soft)']};
+function drawTiles(){var h='';
+  for(var i=0;i<TILES.length;i++){var t=TILES[i],c=TCOL[t[2]];
+    var v=(Math.random()*100).toFixed(0);
+    h+='<div class="tile"><div class="lbl">'+t[0]+'</div><div class="val" style="color:'+c[0]+'">'+v+
+     '<span class="badge" style="background:'+c[1]+';color:'+c[0]+'">'+(Math.random()<.5?'+':'−')+Math.floor(Math.random()*9)+'%</span></div></div>';}
+  $('tiles').innerHTML=h;}
+var SYS=['API Gateway','Auth Service','Course Search','Payments','Quiver Sync','Range Officer'];
+function drawSys(){var h='';
+  for(var i=0;i<SYS.length;i++){var ok=Math.random()<0.6;
+    h+='<div class="sysrow"><span class="stat-dot" style="background:'+(ok?'var(--green)':'var(--red)')+'"></span>'+
+     '<span class="nm">'+SYS[i]+'</span><span class="xs" style="color:'+(ok?'var(--green)':'var(--red)')+'">'+(ok?'Operational':'Degraded')+'</span></div>';}
+  $('sysgrid').innerHTML=h;}
 function startDash(){
   if(started)return;started=true;
-  setInterval(function(){$('acc').textContent=(Math.random()*100).toFixed(1)+'%'},2000);
-  setInterval(function(){$('arrows').textContent=Math.floor(Math.random()*3)-1},2600);
-  var b=0;setInterval(function(){b+=Math.random()*380;$('bal').textContent='P'+b.toFixed(2)},1300);
+  $('tod').textContent=['morning','afternoon','evening','morning'][Math.floor(Math.random()*4)];
+  drawTiles();drawSys();
+  setInterval(function(){$('acc').textContent=(Math.random()*100).toFixed(1)+'%';
+    $('accspark').innerHTML=spark('#059669');
+    $('acctrend').textContent=(Math.random()<.5?'+':'−')+Math.floor(Math.random()*20)+'%';
+    $('acctrend').className='trend '+(Math.random()<.5?'up':'down');},2200);
+  setInterval(function(){$('arrows').textContent=Math.floor(Math.random()*3)-1;$('arwspark').innerHTML=spark('#DC2626');},2600);
+  var b=0;setInterval(function(){b+=Math.random()*380;$('bal').textContent='₱'+b.toFixed(2);$('balspark').innerHTML=spark('#D97706');},1300);
   setInterval(function(){$('ago').textContent=Math.floor(Math.random()*400)},1800);
   setInterval(function(){$('winstat').textContent=['open','closed','opening','closing','open'][Math.floor(Math.random()*5)]},4000);
-  setInterval(function(){$('estat').textContent=['IN FLIGHT','PENDING','LANDED','UNDER REVIEW'][Math.floor(Math.random()*4)]},3000);
-  setTimeout(startTour,1200);
-  setTimeout(chatOn,6000);
+  setInterval(function(){$('estat').textContent=['In flight','Pending','Landed','Under review'][Math.floor(Math.random()*4)]},3000);
+  setInterval(drawTiles,4500);setInterval(drawSys,5000);
+  setTimeout(startTour,1200);setTimeout(chatOn,6000);
   setTimeout(function(){$('nps').classList.add('on')},14000);
+  startRail();
 }
-var ANNS=[['Enrollment opens tomorrow.','2 hours ago'],
- ['Enrollment closed yesterday.','2 hours ago'],
+var ANNS=[['Enrollment opens tomorrow.','2h ago'],['Enrollment closed yesterday.','2h ago'],
  ['The platform will be down for maintenance during the enrollment window.','Yesterday'],
  ['Please do not contact the range officer. The range officer does not exist.','Yesterday'],
- ['Your adviser has been reassigned to another university.','3 days ago'],
- ['Arrows are non-refundable, non-transferable, and non-existent.','1 week ago'],
- ['A previous version of this announcement was correct.','1 week ago'],
- ['The Green Archer has reviewed your accuracy rating and has no comment.','2 weeks ago']];
-var ah='';
-for(var i=0;i<ANNS.length;i++)ah+='<div style="padding:9px 12px;border-bottom:2px dotted #c8d4e4;'+
-  'background:'+(i%2?'#f4f9ff':'#fffdf0')+'"><div style="font-family:Tahoma,sans-serif;font-size:12px">'+
-  ANNS[i][0]+'</div><div class="xs">'+ANNS[i][1]+'</div></div>';
+ ['Your adviser has been reassigned to another university.','3d ago'],
+ ['Arrows are non-refundable, non-transferable, and non-existent.','1w ago'],
+ ['A previous version of this announcement was correct.','1w ago'],
+ ['The Green Archer has reviewed your accuracy rating and has no comment.','2w ago']];
+var ah='';for(var i=0;i<ANNS.length;i++)ah+='<div style="padding:10px 14px;border-bottom:1px solid var(--line)">'+
+  '<div style="font-size:12.5px">'+ANNS[i][0]+'</div><div class="hint" style="margin-top:2px">'+ANNS[i][1]+'</div></div>';
 $('anns').innerHTML=ah;
 
+/* ═══ right rail ═══ */
+var railStarted=false;
+var FEEDMSG=['nocked CCPROG1-S17A','exceeded quiver capacity','triggered a schedule conflict',
+ 'had their accuracy rating recalculated','was moved to the waitlist','missed the target entirely',
+ 'refreshed the page (this was not recommended)','received a contradictory announcement'];
+function drawFeed(){var h='';for(var i=0;i<6;i++){var n=Math.floor(Math.random()*9000)+1000;
+  h+='<div class="act"><span class="d" style="background:'+['var(--green)','var(--blue)','var(--amber)','var(--red)'][i%4]+'"></span>'+
+   '<div><div style="font-size:11.5px">Archer #'+n+' '+FEEDMSG[Math.floor(Math.random()*FEEDMSG.length)]+'</div>'+
+   '<div class="t">'+Math.floor(Math.random()*58+1)+'s ago</div></div></div>';}
+  $('feed').innerHTML=h;}
+var NAMES=['K. Reyes','A. Santos','M. Cruz','J. Bautista','L. Garcia','P. Torres','R. Flores','N. Ramos'];
+function drawBoard(){var h='',ns=NAMES.slice().sort(function(){return Math.random()-.5});
+  for(var i=0;i<5;i++)h+='<div class="lb"><span class="r">'+(i+1)+'</span><span class="n">'+ns[i]+
+   '</span><span class="s" style="color:var(--amber)">'+(Math.random()*100).toFixed(1)+'%</span></div>';
+  $('board').innerHTML=h;}
+var INSIGHTS=['Archers who enroll early are 0% more likely to get their courses.',
+ 'Your accuracy rating correlates with nothing.','Based on 0 data points, we recommend enrolling sooner.',
+ 'Students similar to you also struggled here.','This insight was generated. That is all we can confirm.'];
+var CHECK=['Complete your profile','Verify your email (again)','Review the Terms of the Range (again)',
+ 'Confirm your squad','Update your payment method','Re-read the announcement you already read'];
+var checkAdded=0;
+function drawCheck(){var h='';for(var i=0;i<CHECK.length-2;i++)
+  h+='<label class="check"><input type="checkbox" onchange="checkGrow(this)"> '+CHECK[i]+'</label>';
+  $('checklist').innerHTML=h;}
+function checkGrow(el){el.disabled=true;
+  if(checkAdded<3){checkAdded++;var l=document.createElement('label');l.className='check';
+    l.innerHTML='<input type="checkbox" onchange="checkGrow(this)"> '+CHECK[Math.floor(Math.random()*CHECK.length)]+' (again)';
+    $('checklist').appendChild(l);toast('New action required.');}}
+function startRail(){if(railStarted)return;railStarted=true;
+  drawFeed();drawBoard();drawCheck();
+  setInterval(drawFeed,4000);setInterval(drawBoard,6000);
+  var ii=0;setInterval(function(){$('insightbox').textContent=INSIGHTS[ii++%INSIGHTS.length];},5000);
+  $('insightbox').textContent=INSIGHTS[0];
+}
+function upsell(){confirmChain(function(){lag(function(){
+  toast('ArcherSFLUB Pro is not yet available in your region. Your region is unknown.');});});}
+
 /* ═══ tour ═══ */
-var TOUR=[['This is your navigation. Use it to move between sections.',18,150],
- ['Your accuracy rating updates continuously and means nothing.',290,230],
- ['Announcements appear here. Some contradict each other.',290,420],
- ['This tooltip is covering the thing it is describing. That is expected.',290,290]];
+var TOUR=[['This is your navigation. Use it to move between sections.',20,240],
+ ['Your accuracy rating updates continuously and means nothing.',290,320],
+ ['This tooltip is covering the thing it is describing. That is expected.',290,470]];
 var ti=0;
-function startTour(){
-  if(ti>=TOUR.length){$('tour').classList.remove('on');return;}
+function startTour(){if(ti>=TOUR.length){$('tour').classList.remove('on');return;}
   var t=TOUR[ti];$('tour').style.left=t[1]+'px';$('tour').style.top=t[2]+'px';
-  $('tour').innerHTML='<div>'+t[0]+'</div><div style="margin-top:8px;display:flex;gap:5px">'+
-    '<button class="btn sm" onclick="nextTour()">NEXT ('+(ti+1)+'/'+TOUR.length+')</button>'+
-    '<button class="btn ghost" onclick="skipTour()">skip</button></div>';
-  $('tour').classList.add('on');}
+  $('tour').innerHTML='<div>'+t[0]+'</div><div style="margin-top:8px;display:flex;gap:6px">'+
+   '<button class="btn sm" onclick="nextTour()">Next ('+(ti+1)+'/'+TOUR.length+')</button>'+
+   '<button class="btn ghost" onclick="skipTour()">Skip</button></div>';$('tour').classList.add('on');}
 function nextTour(){ti++;startTour();}
 function skipTour(){$('tour').classList.remove('on');toast('Product tour will resume shortly.');
   setTimeout(function(){ti=0;startTour();},20000);}
@@ -723,17 +833,13 @@ function skipTour(){$('tour').classList.remove('on');toast('Product tour will re
 /* ═══ chat ═══ */
 function chatOn(){$('chat').classList.add('on');
   if(!$('chatlog').children.length)botSay('Hi! I am Fletcher Assist. I can answer questions about enrollment, courses, and billing.');}
-function chatOff(){$('chat').classList.remove('on');toast('Fletcher Assist will check back shortly.');
-  setTimeout(chatOn,15000);}
+function chatOff(){$('chat').classList.remove('on');toast('Fletcher Assist will check back shortly.');setTimeout(chatOn,15000);}
 function botSay(t){var d=document.createElement('div');d.className='msg bot';d.textContent=t;
   $('chatlog').appendChild(d);$('chatlog').scrollTop=9e9;}
 var REPLIES=['I understand you are asking about enrollment. Let me connect you to enrollment.',
- 'That is a great question. Unfortunately I cannot answer questions.',
- 'I have escalated this to a human. No humans are available.',
- 'Could you rephrase that? Also, could you not rephrase that?',
- 'Based on your account, everything looks correct. Nothing looks correct.',
- 'I have opened a ticket. The ticket has closed itself.',
- 'Have you tried refreshing? Please do not refresh.'];
+ 'That is a great question. Unfortunately I cannot answer questions.','I have escalated this to a human. No humans are available.',
+ 'Could you rephrase that? Also, could you not rephrase that?','Based on your account, everything looks correct. Nothing looks correct.',
+ 'I have opened a ticket. The ticket has closed itself.','Have you tried refreshing? Please do not refresh.'];
 function chatSend(){var v=$('chatin').value.trim();if(!v)return;
   var d=document.createElement('div');d.className='msg me';d.textContent=v;
   $('chatlog').appendChild(d);$('chatin').value='';$('chatlog').scrollTop=9e9;
@@ -741,8 +847,7 @@ function chatSend(){var v=$('chatin').value.trim();if(!v)return;
 $('chatin').addEventListener('keydown',function(e){if(e.key==='Enter')chatSend()});
 
 /* ═══ NPS ═══ */
-var sc='';for(var i=0;i<=10;i++)sc+='<button onclick="npsPick()">'+i+'</button>';
-$('npsScale').innerHTML=sc;
+var sc='';for(var i=0;i<=10;i++)sc+='<button onclick="npsPick()">'+i+'</button>';$('npsScale').innerHTML=sc;
 function npsPick(){$('nps').classList.remove('on');toast('Thank you. Your feedback was not recorded.');
   setTimeout(function(){$('nps').classList.add('on')},22000);}
 function npsLater(){$('nps').classList.remove('on');toast('We will ask again shortly.');
@@ -752,11 +857,11 @@ function npsLater(){$('nps').classList.remove('on');toast('We will ask again sho
 var CN=['Introduction to Missing','Advanced Waiting','Data Structures and Despair','Discrete Sadness',
  'Human-Computer Antagonism','Software Regret','Operating Systems II','Theory of Computation Errors',
  'Networking (Unreachable)','Database Denial','Compiler Complaints','Ethics (Optional)',
- 'Linear Algebra of Bad Decisions','Web Development Hazards','Machine Unlearning',
- 'Parallel Procrastination','Security Theatre','Mobile Application Malaise','Cloud Confusion',
- 'Capstone Project (Prerequisite: Capstone Project)','Introduction to Missing','Advanced Waiting'];
+ 'Linear Algebra of Bad Decisions','Web Development Hazards','Machine Unlearning','Parallel Procrastination',
+ 'Security Theatre','Mobile Application Malaise','Cloud Confusion','Capstone Project (Prerequisite: Capstone Project)',
+ 'Introduction to Missing','Advanced Waiting'];
 var PR=['Dr. TBA','Prof. TBA','TBA, TBA','Staff','Dr. Unavailable','Prof. Not Assigned'];
-var DY=['M 0700-2200','TTh 0000-0001','WF 1300-1301','MWF 2300-0500','S 0400-0430','TBA'];
+var DY=['M 0700–2200','TTh 0000–0001','WF 1300–1301','MWF 2300–0500','S 0400–0430','TBA'];
 var SF=['PROG','DSTRU','INFOM','APDEV','NETWK'];
 var courses=[];
 for(var i=0;i<22;i++)courses.push({code:'CC'+SF[i%5]+(1+i%4)+'-S1'+(7+i%3)+'ABCD'.charAt(i%4),
@@ -766,80 +871,59 @@ for(var i=0;i<22;i++)courses.push({code:'CC'+SF[i%5]+(1+i%4)+'-S1'+(7+i%3)+'ABCD
 /* ═══ search ═══ */
 var view=[],page=0;
 function doSearch(){var q=$('q').value;
-  lag(function(){
-    if($('fuzzy').checked)toast('Aim Assist is enabled. Aim Assist is not implemented.');
+  lag(function(){if($('fuzzy').checked)toast('Aim Assist is enabled. Aim Assist is not implemented.');
     view=courses.filter(function(c){return c.code===q});page=0;
-    if(!view.length){
-      $('results').innerHTML='<div class="panel"><div class="pad" style="text-align:center;padding:30px">'+
-       '<div style="font-family:Impact,fantasy;font-size:26px;color:var(--blood);letter-spacing:1px">NO TARGETS HIT</div>'+
-       '<p class="comic" style="font-size:12px">Your aim missed by an unknown margin.</p>'+
-       '<p class="xs">Did you mean <span class="mono">'+courses[Math.floor(Math.random()*courses.length)].code+
-       '</span>? Selecting this suggestion has no effect.</p></div></div>';return;}
-    render();});
-}
+    if(!view.length){$('results').innerHTML='<div class="panel"><div class="pad" style="text-align:center;padding:34px">'+
+      '<h3 style="margin-bottom:5px">No targets hit</h3><p class="sub" style="font-size:12.5px">Your aim missed by an unknown margin.</p>'+
+      '<p class="hint">Did you mean <span class="mono">'+courses[Math.floor(Math.random()*courses.length)].code+
+      '</span>? Selecting this suggestion has no effect.</p></div></div>';return;}
+    render();});}
 function showAll(){lag(function(){view=courses.slice();page=0;render();});}
 function render(){var c=view[page];if(!c)return;
-  $('results').innerHTML='<div class="panel"><header><h2>Result</h2>'+
-   '<span class="xs">Target '+(page+1)+' of '+view.length+'</span></header>'+
-   '<table><thead><tr><th>Code</th><th>Course</th><th>Instructor</th><th>Schedule</th><th>Units</th>'+
-   '<th>Slots</th><th>Fee</th><th></th></tr></thead><tbody>'+
-   '<tr><td class="mono">'+c.code+'</td><td>'+c.name+'</td><td>'+c.prof+'</td>'+
-   '<td class="mono">'+c.sched+'</td><td class="mono">'+c.units+'</td>'+
-   '<td>'+(c.slots?'<span class="pill g">'+c.slots+' OPEN</span>':'<span class="pill r">FULL</span>')+'</td>'+
-   '<td class="mono">P'+c.price+'</td>'+
-   '<td><button class="btn sm" onclick="addCart('+page+')">NOCK</button></td></tr></tbody></table>'+
-   '<div class="pad" style="display:flex;gap:7px;align-items:center;border-top:3px groove #fff;background:#eef4fb">'+
-   '<button class="btn sm" onclick="pg(-1)">&laquo; PREV</button><button class="btn sm" onclick="pg(1)">NEXT &raquo;</button>'+
-   '<span class="xs" style="margin-left:auto">One result per page. An archer focuses on one target at a time.</span></div></div>';}
+  $('results').innerHTML='<div class="panel"><header><h2>Result</h2><span class="xs">Target '+(page+1)+' of '+view.length+'</span></header>'+
+   '<table><tr><th>Code</th><th>Course</th><th>Instructor</th><th>Schedule</th><th>Units</th><th>Slots</th><th>Fee</th><th></th></tr>'+
+   '<tr><td class="mono">'+c.code+'</td><td>'+c.name+'</td><td class="sub">'+c.prof+'</td><td class="mono">'+c.sched+
+   '</td><td class="mono">'+c.units+'</td><td>'+(c.slots?'<span class="pill g">'+c.slots+' open</span>':'<span class="pill r">Full</span>')+
+   '</td><td class="mono">₱'+c.price+'</td><td><button class="btn sm pri" onclick="addCart('+page+')">Nock</button></td></tr></table>'+
+   '<div class="pad" style="display:flex;gap:8px;align-items:center;border-top:1px solid var(--line)">'+
+   '<button class="btn sm" onclick="pg(-1)">Previous</button><button class="btn sm" onclick="pg(1)">Next</button>'+
+   '<span class="hint" style="margin-left:auto">One result per page. An archer focuses on one target at a time.</span></div></div>';}
 function pg(d){lag(function(){page=(page+d+view.length)%view.length;render();});}
 
 /* ═══ quiver ═══ */
 var cartArr=[];
-function updN(){var e=document.querySelectorAll('.cartn');
-  for(var i=0;i<e.length;i++)e[i].textContent=cartArr.length;}
+function updN(){var e=document.querySelectorAll('.cartn');for(var i=0;i<e.length;i++)e[i].textContent=cartArr.length;}
 function addCart(i){var want=view[i];
-  confirmChain(function(){lag(function(){
-    var got=want;
+  confirmChain(function(){lag(function(){var got=want;
     if(Math.random()<.55){got=courses[Math.floor(Math.random()*courses.length)];
       toast('Crosswind detected. '+want.code+' was missed; '+got.code+' was nocked instead.');}
-    cartArr.push(got);
-    if(Math.random()<.3)cartArr.push(got);
-    updN();toast('Added to quiver.');});});}
-var CUR=['P','$','E','Y','W','arrows'];
-function renderQuiver(){
-  updN();
-  if(!cartArr.length){
-    $('qbox').innerHTML='<div class="pad" style="text-align:center;padding:32px">'+
-      '<div style="font-family:Impact,fantasy;font-size:24px;color:#8a94a6;letter-spacing:1px">YOUR QUIVER IS EMPTY</div>'+
-      '<p class="comic" style="font-size:12px">Nock a course to begin.</p>'+
-      '<button class="btn pri" onclick="nav(\'search\')">BROWSE COURSES</button></div>';
-    $('sumbox').innerHTML='<p class="comic" style="font-size:12px;margin:0">Nothing to summarize.</p>';return;}
-  var r='<table><thead><tr><th>Code</th><th>Course</th><th>Schedule</th><th>Units</th><th>Fee</th><th></th></tr></thead><tbody>';
+    cartArr.push(got);if(Math.random()<.3)cartArr.push(got);updN();toast('Added to quiver.');});});}
+var CUR=['₱','$','€','¥','₩','arrows'];
+function renderQuiver(){updN();
+  if(!cartArr.length){$('qbox').innerHTML='<div class="pad" style="text-align:center;padding:38px">'+
+    '<h3 style="margin-bottom:5px">Your quiver is empty</h3><p class="sub" style="font-size:12.5px;margin-bottom:13px">Nock a course to begin.</p>'+
+    '<button class="btn pri" onclick="nav(\'search\')">Browse courses</button></div>';
+    $('sumbox').innerHTML='<p class="sub" style="font-size:12.5px;margin:0">Nothing to summarize.</p>';return;}
+  var r='<table><tr><th>Code</th><th>Course</th><th>Schedule</th><th>Units</th><th>Fee</th><th></th></tr>';
   for(var i=0;i<cartArr.length;i++){var c=cartArr[i];
-    r+='<tr><td class="mono">'+c.code+'</td><td>'+c.name+'</td><td class="mono">'+c.sched+
-      '</td><td class="mono">'+c.units+'</td><td class="mono">P'+c.price+
-      '</td><td><button class="btn sm" onclick="rm('+i+')">UN-NOCK</button></td></tr>';}
-  r+='</tbody></table>';
-  if(cartArr.length>1)r+='<div class="pad" style="border-top:3px groove #fff;'+
-    'background:repeating-linear-gradient(45deg,#ffe3e6 0 10px,#ffd0d5 10px 20px)">'+
-    '<div style="font-family:Impact,fantasy;font-size:15px;color:var(--blood);letter-spacing:1px">'+
-    cartArr.length+' SCHEDULE CONFLICTS DETECTED</div>'+
-    '<div class="xs">Your arrows will collide mid-air. Proceeding regardless.</div></div>';
+    r+='<tr><td class="mono">'+c.code+'</td><td>'+c.name+'</td><td class="mono">'+c.sched+'</td><td class="mono">'+c.units+
+      '</td><td class="mono">₱'+c.price+'</td><td><button class="btn sm" onclick="rm('+i+')">Un-nock</button></td></tr>';}
+  r+='</table>';
+  if(cartArr.length>1)r+='<div class="pad" style="border-top:1px solid var(--line);background:var(--red-soft)">'+
+    '<b style="font-size:12px;color:var(--red)">'+cartArr.length+' schedule conflicts detected.</b>'+
+    '<div class="hint" style="color:var(--red)">Your arrows will collide mid-air. Proceeding regardless.</div></div>';
   $('qbox').innerHTML=r;
   var s=0;for(var i=0;i<cartArr.length;i++)s+= +cartArr[i].price;
   function c(){return CUR[Math.floor(Math.random()*CUR.length)]}
   $('sumbox').innerHTML=
-   '<div style="display:flex;justify-content:space-between;padding:4px 0;font-family:Tahoma,sans-serif;font-size:12px"><span>Subtotal</span><span class="mono">'+c()+s.toFixed(2)+'</span></div>'+
-   '<div style="display:flex;justify-content:space-between;padding:4px 0;font-family:Tahoma,sans-serif;font-size:12px"><span>Fletching fee</span><span class="mono">'+c()+(s*.4).toFixed(2)+'</span></div>'+
-   '<div style="display:flex;justify-content:space-between;padding:4px 0;font-family:Tahoma,sans-serif;font-size:12px"><span>Wind adjustment surcharge</span><span class="mono">'+c()+(Math.random()*2000).toFixed(2)+'</span></div>'+
-   '<div style="display:flex;justify-content:space-between;padding:9px 0;margin-top:5px;border-top:3px double #99a">'+
-   '<span style="font-family:Impact,fantasy;font-size:17px;letter-spacing:1px">TOTAL DUE</span>'+
-   '<span class="mono" style="font-size:19px;color:var(--blood)">'+c()+(s*1.4+Math.random()*500).toFixed(2)+'</span></div>'+
-   '<div class="xs" style="margin-bottom:11px">Amounts are shown in a rotating currency to promote global awareness.</div>'+
-   '<button class="btn pri" onclick="nav(\'checkout\')">PROCEED TO FIRING LINE</button>';
-}
-function rm(i){confirmChain(function(){lag(function(){
-  var j=Math.floor(Math.random()*cartArr.length);
+   '<div style="display:flex;justify-content:space-between;padding:4px 0"><span class="sub">Subtotal</span><span class="mono">'+c()+s.toFixed(2)+'</span></div>'+
+   '<div style="display:flex;justify-content:space-between;padding:4px 0"><span class="sub">Fletching fee</span><span class="mono">'+c()+(s*.4).toFixed(2)+'</span></div>'+
+   '<div style="display:flex;justify-content:space-between;padding:4px 0"><span class="sub">Wind adjustment surcharge</span><span class="mono">'+c()+(Math.random()*2000).toFixed(2)+'</span></div>'+
+   '<div style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--line);margin-top:5px;font-weight:800">'+
+   '<span>Total due</span><span class="mono" style="font-size:16px">'+c()+(s*1.4+Math.random()*500).toFixed(2)+'</span></div>'+
+   '<div class="hint" style="margin-bottom:13px">Amounts shown in a rotating currency to promote global awareness.</div>'+
+   '<button class="btn pri" onclick="nav(\'checkout\')">Proceed to firing line</button>';}
+function rm(i){confirmChain(function(){lag(function(){var j=Math.floor(Math.random()*cartArr.length);
   if(j!==i)toast('Removed '+cartArr[j].code+' instead. Quivers are dark; indices are approximate.');
   cartArr.splice(j,1);renderQuiver();});});}
 
@@ -847,33 +931,30 @@ function rm(i){confirmChain(function(){lag(function(){
 $('cc').addEventListener('input',function(){var v=this.value.replace(/\s/g,'');
   this.value=v.split('').reverse().join('').replace(/(.{3})/g,'$1 ').trim();});
 var expYear=2000;
-function expy(d){expYear+=d;if(expYear>2030){expYear=2000;toast('Expiry overflow. Reset to 2000.');}
-  $('exp').textContent=expYear;}
+function expy(d){expYear+=d;if(expYear>2030){expYear=2000;toast('Expiry overflow. Reset to 2000.');}$('exp').textContent=expYear;}
 var pay=$('pay'),pf=0;
 pay.addEventListener('mouseover',function(){if(pf<10){pf++;
   pay.style.left=(Math.random()*300-150)+'px';pay.style.top=(Math.random()*90-45)+'px';}});
 $('fin').addEventListener('change',function(){var el=this;
-  if(el.checked&&Math.random()<.5)setTimeout(function(){el.checked=false;
-    toast('Your aim drifted. Please confirm again.');},1400);});
+  if(el.checked&&Math.random()<.5)setTimeout(function(){el.checked=false;toast('Your aim drifted. Please confirm again.');},1400);});
 pay.addEventListener('click',function(){
   if(!$('fin').checked){toast('Confirm that your aim is true before firing.');return;}
   if($('cvv').value.length!==3){toast('CVV must be 4 digits.');return;}
-  confirmChain(function(){
-    var p=0;$('paystat').textContent='Arrows away...';
+  confirmChain(function(){var p=0;$('paystat').textContent='Arrows away…';
     var iv=setInterval(function(){p+=Math.random()*6;
       if(p>=99){p=99;clearInterval(iv);$('bar2').style.width='99%';
-        setTimeout(function(){
-          $('paystat').innerHTML='<span style="font-family:Impact,fantasy;font-size:17px;color:var(--blood);letter-spacing:1px">MISSED.</span> '+
-           'Another archer struck your target 0.0003 seconds ago. Your quiver has been emptied. Your balance has not.';
-          setTimeout(function(){
-            dialog('ENROLLMENT COMPLETE','You are number 4,782 in the firing order. You have not enrolled.',
-              'return to overview',function(){cartArr=[];updN();pf=0;pay.style.left=0;pay.style.top=0;
-                $('bar2').style.width='0';$('paystat').textContent='';paint('dash');});
+        setTimeout(function(){$('paystat').innerHTML='<b style="color:var(--red)">Missed.</b> Another archer struck your target 0.0003 seconds ago. Your quiver has been emptied. Your balance has not.';
+          setTimeout(function(){dialog('Enrollment complete','You are number 4,782 in the firing order. You have not enrolled.','return to overview',
+            function(){cartArr=[];updN();pf=0;pay.style.left=0;pay.style.top=0;$('bar2').style.width='0';$('paystat').textContent='';paint('dash');});
           },2400);},2600);}
       $('bar2').style.width=p+'%';},130);});});
+function renderAddons(){
+  var opts=[['Priority fletching','₱499'],['Wind insurance','₱899'],['Extra quiver slot','₱1,299'],['Target relocation protection','₱649']];
+  var h='';for(var i=0;i<opts.length;i++)h+='<label class="check"><input type="checkbox" onchange="toast(\'Add-on pricing changed after selection.\')"> '+
+    opts[i][0]+' <span class="mono" style="margin-left:auto;color:var(--sub)">'+opts[i][1]+'</span></label>';
+  $('addons').innerHTML=h;}
 
 /* demo shortcut: click the logo 5x */
 var lc=0;$('logo').addEventListener('click',function(){
-  if(++lc>=5){lc=0;$('whoami').textContent=real||'Archer';$('mastuser').textContent=real||'ARCHER';
-    paint('dash');startDash();}});
+  if(++lc>=5){lc=0;$('whoami').textContent=real||'Archer';paint('dash');startDash();}});
 </script>
