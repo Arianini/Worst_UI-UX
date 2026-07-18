@@ -315,7 +315,18 @@ tr:last-child td{border-bottom:0}
   <div id="gsearch"><input type="text" placeholder="Search anything…"
     onfocus="toast('Global search is coming soon. It has been coming soon since 2019.');this.blur()"></div>
   <div class="topright">
-    <button class="iconbtn" onclick="toast('You have 203 notifications. None of them are important.')">🔔<span class="bd">203</span></button>
+    <div style="position:relative">
+      <button class="iconbtn" id="bellbtn" onclick="toggleNotifs()">🔔<span class="bd" id="bellbd">203</span></button>
+      <div id="notifpanel" style="display:none;position:absolute;top:42px;right:0;width:300px;max-height:360px;
+        overflow-y:auto;background:var(--card);border:3px solid var(--ink);border-radius:12px;
+        box-shadow:6px 6px 0 rgba(23,10,46,.3);z-index:220">
+        <div style="padding:10px 12px;border-bottom:3px solid var(--ink);display:flex;align-items:center;gap:8px;background:var(--pri-soft)">
+          <b style="font-size:12.5px" id="notiftitle">203 notifications</b>
+          <button class="btn sm" style="margin-left:auto" onclick="clearNotifs()">Clear all</button>
+        </div>
+        <div id="notiflist"></div>
+      </div>
+    </div>
     <button class="iconbtn" onclick="toast('Quick actions unavailable in this build.')">⚡</button>
     <div class="avatar" id="avbtn" onclick="toast('Account menu unavailable.')">A</div>
   </div>
@@ -445,6 +456,30 @@ tr:last-child td{border-bottom:0}
     <div style="height:6px;background:var(--line);border-radius:99px;margin-top:15px;overflow:hidden">
       <div id="bar" style="height:100%;width:0;background:var(--pri);transition:width .12s"></div></div>
     <div class="xs" id="relstat" style="margin-top:7px;font-size:11px;color:var(--mute)"></div></div></div>
+</div>
+
+<!-- ══════════ QUEUE ══════════ -->
+<div class="view" id="queue">
+  <div class="crumb">HOME / ENROLLMENT / QUEUE</div>
+  <div class="head"><div><h1>You are in the queue</h1><p>Please do not close this tab. Closing this tab is fine.</p></div></div>
+  <div class="panel"><div class="pad" style="text-align:center;padding:50px 20px">
+    <div class="hint" style="font-size:12px;margin-bottom:10px">YOUR POSITION IN LINE</div>
+    <div class="mono" id="qnum" style="font-size:64px;font-weight:800;color:var(--pri)">58</div>
+    <div style="height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:22px auto;max-width:360px">
+      <div id="qbar" style="height:100%;width:5%;background:var(--pri);transition:width .6s"></div></div>
+    <div class="xs" id="qmsg" style="color:var(--mute);min-height:16px">Estimated wait: 4 hours.</div>
+  </div></div>
+</div>
+
+<!-- ══════════ SESSION EXPIRED ══════════ -->
+<div class="view" id="signin">
+  <div class="crumb">HOME / SESSION</div>
+  <div class="panel" style="max-width:420px;margin:60px auto"><div class="pad" style="text-align:center;padding:34px">
+    <h2 style="color:var(--red);margin-bottom:10px">Session expired</h2>
+    <p class="sub" style="font-size:12.5px">You were inactive while waiting. Please sign in again.</p>
+    <p class="hint" style="margin:10px 0 18px">(You were not inactive. The queue was.)</p>
+    <button class="btn pri" onclick="restartQueue()">Sign in again</button>
+  </div></div>
 </div>
 
 <!-- ══════════ OVERVIEW ══════════ -->
@@ -605,6 +640,13 @@ tr:last-child td{border-bottom:0}
 
 <div id="scrim"></div>
 <div id="load"><div class="sp"></div><div id="loadmsg"></div></div>
+<div id="popad" style="display:none;position:fixed;z-index:270;width:250px;background:var(--amber);
+  border:4px solid var(--ink);border-radius:14px;box-shadow:7px 7px 0 rgba(23,10,46,.3);padding:14px;cursor:pointer">
+  <button onclick="event.stopPropagation();closePopAd()" style="position:absolute;top:-12px;right:-12px;width:26px;height:26px;
+    border-radius:50%;background:var(--red);color:#fff;border:3px solid var(--ink);font-weight:800;cursor:pointer">×</button>
+  <div class="eyebrow" style="color:var(--ink)">🎉 CONGRATULATIONS ARCHER</div>
+  <b style="font-size:13px" id="popadtext">You've won a free bowstring!</b>
+</div>
 
 <script>
 var $=function(i){return document.getElementById(i)};
@@ -655,7 +697,10 @@ var Q3=['This cannot be undone. (It can be undone.)','Final confirmation. Probab
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 function dialog(title,body,yes,onYes){
   $('scrim').innerHTML='<div class="dlg"><div class="pad"><h2>'+title+'</h2><p>'+body+'</p></div>'+
-   '<div class="foot"><button class="btn pri" id="dno">Go back</button><button class="tiny-yes" id="dyes">'+yes+'</button></div></div>';
+   '<div class="foot"><button class="btn" id="dno" style="background:var(--green);border-color:var(--ink);color:#fff;'+
+   'box-shadow:4px 4px 0 rgba(23,10,46,.3);font-size:14px">Go back</button>'+
+   '<button class="btn" id="dyes" style="margin-left:auto;background:#E7E2ED;border-color:#C9C0DA;color:#B9AFC9;'+
+   'box-shadow:none;font-size:11px;padding:6px 12px">'+yes+'</button></div></div>';
   $('scrim').classList.add('on');
   $('dno').onclick=function(){$('scrim').classList.remove('on')};
   $('dyes').onclick=function(){$('scrim').classList.remove('on');onYes()};}
@@ -667,9 +712,9 @@ function confirmChain(done){
 /* ═══ toasts ═══ */
 function toast(t){var d=document.createElement('div');d.className='toast';d.textContent=t;
   $('toasts').appendChild(d);setTimeout(function(){d.remove()},8000);}
-var AMB=['Preferences saved.','Preferences reverted.','Sync complete.','Sync failed. Retrying.',
- 'A course in your quiver changed sections.','Your adviser is now unavailable.','Tuition estimate updated.',
- 'A schedule conflict was detected and ignored.','Session extended by 0 seconds.','Someone else is viewing your quiver.'];
+var AMB=['Preferances saved.','Preferences reverted.','Sync complete.','Sync failed. Retrying.',
+ 'A course in your quiver changed sections.','Your adviser is now unavailble.','Tuition estimate updated.',
+ 'A schedule conflict was detected and ignored.','Session extended by 0 seconds.','Someone else is veiwing your quiver.'];
 setInterval(function(){if(Math.random()<.5)toast(AMB[Math.floor(Math.random()*AMB.length)])},8000);
 
 /* ═══ nav ═══ */
@@ -760,8 +805,73 @@ rel.addEventListener('mouseover',function(){if(flees<8){flees++;
 rel.addEventListener('click',function(){var p=0;$('relstat').textContent='Arrow in flight…';
   var iv=setInterval(function(){p+=Math.random()*9;
     if(p>=100){clearInterval(iv);$('bar').style.width='100%';$('relstat').textContent='Profile verified.';
-      setTimeout(function(){$('whoami').textContent=real||'Archer';paint('dash');startDash();},800);}
+      setTimeout(function(){$('whoami').textContent=real||'Archer';paint('queue');runQueue();},800);}
     $('bar').style.width=Math.min(p,100)+'%';},110);});
+
+/* ═══ pop-up ad ═══ */
+var POPADS=["You've won a free bowstring!",'Your accuracy rating qualifies you for a prize!',
+ 'One weird trick to skip the queue!','Claim your free arrows before they expire!'];
+function showPopAd(){var el=$('popad');
+  el.style.left=(40+Math.random()*220)+'px';el.style.top=(120+Math.random()*260)+'px';
+  $('popadtext').textContent=POPADS[Math.floor(Math.random()*POPADS.length)];
+  el.style.display='block';el.onclick=rick;}
+function closePopAd(){$('popad').style.display='none';}
+setTimeout(showPopAd,20000);
+setInterval(function(){if($('popad').style.display==='none'&&Math.random()<.6)showPopAd();},25000);
+
+/* ═══ notification hydra ═══ */
+var notifCount=203;
+var NBASE=['Course conflict detected','Payment reminder','Your adviser is unavailable','Queue position changed',
+ 'A course in your quiver changed sections','New announcement posted','Squad member update','Profile 40% complete'];
+function refreshBell(){$('bellbd').textContent=notifCount;$('notiftitle').textContent=notifCount+' notifications';}
+function toggleNotifs(){var p=$('notifpanel');
+  if(p.style.display==='block'){p.style.display='none';return;}
+  if(!$('notiflist').children.length){var h='';
+    for(var i=0;i<8;i++)h+=notifRow(NBASE[i%NBASE.length]);
+    $('notiflist').innerHTML=h;}
+  p.style.display='block';}
+function notifRow(text){
+  return '<div class="notifrow" style="display:flex;gap:8px;align-items:flex-start;padding:9px 12px;border-bottom:2px dashed var(--line);font-size:11.5px;font-weight:700">'+
+   '<span style="flex:1">'+text+'</span><button class="btn sm ghost" style="padding:2px 8px" onclick="closeNotif(this)">×</button></div>';}
+function closeNotif(btn){
+  btn.parentElement.remove();
+  notifCount+=2;refreshBell();
+  var h=notifRow('Notification deleted.')+notifRow('You have a new notification about the deleted notification.');
+  $('notiflist').insertAdjacentHTML('afterbegin',h);
+}
+function clearNotifs(){
+  $('notiflist').innerHTML='<div style="padding:14px;text-align:center;font-size:12px;color:var(--sub);font-weight:800">Successfully cleared '+notifCount+' notifications.</div>';
+  notifCount=notifCount*2;refreshBell();
+  setTimeout(function(){var h='';for(var i=0;i<8;i++)h+=notifRow(NBASE[i%NBASE.length]);$('notiflist').innerHTML=h;},1400);
+}
+refreshBell();
+
+/* ═══ queue from hell (deterministic, fires once) ═══ */
+var QSEQ=[[58,'Estimated wait: 4 hours.'],[31,'Estimated wait: 2 hours.'],[12,'Almost there.'],
+ [3,'Almost there.'],[2,'Almost there.'],[47,'Queue recalculated based on fairness.'],
+ [1,'You may now enter.']];
+var queueDone=false;
+function runQueue(){
+  if(queueDone){ // already burned the disaster once — go straight through
+    $('whoami').textContent=real||'Archer';paint('dash');startDash();return;}
+  var i=0;
+  function step(){
+    if(i>=QSEQ.length){
+      queueDone=true;
+      setTimeout(function(){paint('signin');},900);
+      return;}
+    var q=QSEQ[i++];
+    $('qnum').textContent=q[0];
+    $('qbar').style.width=Math.max(4,100-q[0])+'%';
+    $('qmsg').textContent=q[1];
+    setTimeout(step,1100);
+  }
+  step();
+}
+function restartQueue(){
+  // the disaster has already fired once this session, so this just lets the user through.
+  runQueue();
+}
 
 /* ═══ sparkline helper ═══ */
 function spark(color){var w=56,h=20,pts=[];
@@ -904,6 +1014,8 @@ var courses=[];
 for(var i=0;i<22;i++)courses.push({code:'CC'+SF[i%5]+(1+i%4)+'-S1'+(7+i%3)+'ABCD'.charAt(i%4),
   name:CN[i],units:[0,3,-1,3,9][i%5],prof:PR[i%6],sched:DY[i%6],
   slots:i%4===0?0:Math.floor(Math.random()*3),price:(Math.random()*9000+1000).toFixed(2)});
+courses.push({code:'CCPROG2-S19B',name:'Data Structures and Despair',units:3,prof:'Dr. TBA',
+  sched:'TTh 1300–1430',slots:1,price:'4250.00'});
 
 /* ═══ search ═══ */
 var view=[],page=0;
@@ -936,7 +1048,15 @@ function addCart(i){var want=view[i];
       toast('Crosswind detected. '+want.code+' was missed; '+got.code+' was nocked instead.');}
     cartArr.push(got);if(Math.random()<.3)cartArr.push(got);updN();toast('Added to quiver.');});});}
 var CUR=['₱','$','€','¥','₩','arrows'];
-function renderQuiver(){updN();
+function quiverBroken(){
+  $('qbox').innerHTML='<div class="pad" style="text-align:center;padding:38px">'+
+    '<h3 style="margin-bottom:5px;color:var(--red)">Failed to load quiver</h3>'+
+    '<p class="sub" style="font-size:12.5px;margin-bottom:13px">Quiver Sync is degraded. Your '+cartArr.length+' nocked course(s) could not be retrieved.</p>'+
+    '<button class="btn pri" onclick="retryQuiver()">Retry</button></div>';
+  $('sumbox').innerHTML='<p class="sub" style="font-size:12.5px;margin:0">Summary unavailable while the quiver is broken.</p>';
+}
+function retryQuiver(){lag(function(){quiverBroken();toast('Retry failed. Quiver Sync is still degraded.');});}
+function renderQuiver(){updN();quiverBroken();return;
   if(!cartArr.length){$('qbox').innerHTML='<div class="pad" style="text-align:center;padding:38px">'+
     '<h3 style="margin-bottom:5px">Your quiver is empty</h3><p class="sub" style="font-size:12.5px;margin-bottom:13px">Nock a course to begin.</p>'+
     '<button class="btn pri" onclick="nav(\'search\')">Browse courses</button></div>';
@@ -991,7 +1111,8 @@ function renderAddons(){
     opts[i][0]+' <span class="mono" style="margin-left:auto;color:var(--sub)">'+opts[i][1]+'</span></label>';
   $('addons').innerHTML=h;}
 
-/* demo shortcut: click the logo 5x */
+/* demo shortcut: click the logo 5x — skips onboarding + queue entirely, from any screen */
 var lc=0;$('logo').addEventListener('click',function(){
-  if(++lc>=5){lc=0;$('whoami').textContent=real||'Archer';paint('dash');startDash();}});
+  if(++lc>=5){lc=0;queueDone=true;$('scrim').classList.remove('on');$('load').classList.remove('on');
+    $('whoami').textContent=real||'Archer';paint('dash');startDash();}});
 </script>
