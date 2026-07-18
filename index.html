@@ -427,7 +427,13 @@ tr:last-child td{border-bottom:0}
 
   <div class="panel wstep" id="w3"><header><h2>Create a bowstring</h2><span class="xs">Step 3 of 7 (of 12)</span></header>
   <div class="pad">
-    <div class="field"><label for="pw">Bowstring (password)</label><input type="password" id="pw">
+    <div class="field"><label for="pw">Bowstring (password)</label>
+      <div style="position:relative">
+        <input type="password" id="pw" style="padding-right:40px">
+        <button type="button" id="pweye" onclick="togglePw()" aria-label="Show password"
+          style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;
+          cursor:pointer;font-size:17px;padding:4px;line-height:1">👁️</button>
+      </div>
       <div class="hint">Requirements regenerate per keystroke to account for crosswind.</div></div>
     <div style="background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-bottom:13px">
       <div class="eyebrow"><span class="dot" style="background:var(--amber);box-shadow:0 0 0 3px var(--amber-soft)"></span>REQUIREMENTS</div>
@@ -799,6 +805,9 @@ function newRules(){var p=POOL.slice().sort(function(){return Math.random()-.5})
 newRules();
 $('pw').addEventListener('input',function(){if(Math.random()<.4)newRules()});
 var pwTries=0;
+function togglePw(){var el=$('pw'),eye=$('pweye');
+  if(el.type==='password'){el.type='text';eye.textContent='🙈';eye.setAttribute('aria-label','Hide password');}
+  else{el.type='password';eye.textContent='👁️';eye.setAttribute('aria-label','Show password');}}
 
 var tx='';for(var i=1;i<=200;i++)tx+=i+'. The Range reserves the right to reserve rights, including this one. Nocking an arrow implies consent to clause '+(i+1)+', which does not yet exist.\n';
 $('tos').textContent=tx;
