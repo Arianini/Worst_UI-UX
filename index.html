@@ -327,20 +327,37 @@ tr:last-child td{border-bottom:0}
         <div id="notiflist"></div>
       </div>
     </div>
-    <button class="iconbtn" onclick="toast('Quick actions unavailable in this build.')">⚡</button>
-    <div class="avatar" id="avbtn" onclick="toast('Account menu unavailable.')">A</div>
+    <div style="position:relative">
+      <button class="iconbtn" onclick="togglePanel('quickpanel')">⚡</button>
+      <div id="quickpanel" style="display:none;position:absolute;top:42px;right:0;width:210px;
+        background:var(--card);border:3px solid var(--ink);border-radius:12px;box-shadow:6px 6px 0 rgba(23,10,46,.3);z-index:220;overflow:hidden">
+        <button class="nv" style="width:100%" onclick="rick()">🎁 Claim a prize</button>
+        <button class="nv" style="width:100%" onclick="togglePanel('quickpanel');openBroken('automations','Automations','Set it and forget it. It forgot itself.')">⚙️ Run automation</button>
+        <button class="nv" style="width:100%" onclick="togglePanel('quickpanel');toast('Quick note saved. To nowhere.')">📝 Quick note</button>
+        <button class="nv" style="width:100%" onclick="togglePanel('quickpanel');toast('Shortcut key changed itself.')">⌨️ Shortcuts</button>
+      </div>
+    </div>
+    <div style="position:relative">
+      <div class="avatar" id="avbtn" onclick="togglePanel('acctpanel')">A</div>
+      <div id="acctpanel" style="display:none;position:absolute;top:42px;right:0;width:210px;
+        background:var(--card);border:3px solid var(--ink);border-radius:12px;box-shadow:6px 6px 0 rgba(23,10,46,.3);z-index:220;overflow:hidden">
+        <button class="nv" style="width:100%" onclick="togglePanel('acctpanel');openBroken('settings','Profile','Your profile is 40% complete forever.')">👤 Profile</button>
+        <button class="nv" style="width:100%" onclick="togglePanel('acctpanel');openBroken('settings','Preferences','Change things. Nothing changes.')">🎛️ Preferences</button>
+        <button class="nv" style="width:100%" onclick="togglePanel('acctpanel');openBroken('signout','Signing out','Your session will end on its own. It will not.')">🚪 Log out</button>
+      </div>
+    </div>
   </div>
 </header>
 
 <nav id="subtabs" id="subtabs">
   <button class="tabx on">Overview</button>
-  <button class="tabx" onclick="toast('Analytics tab is not part of this rollout.')">Analytics</button>
-  <button class="tabx" onclick="toast('Insights tab requires a plan upgrade.')">Insights <span class="mini">AI</span></button>
-  <button class="tabx" onclick="toast('Activity tab failed to load.')">Activity</button>
-  <button class="tabx" onclick="toast('Automations are in closed beta.')">Automations <span class="mini">BETA</span></button>
-  <button class="tabx" onclick="toast('Reports are generated nightly. Tonight failed.')">Reports</button>
-  <button class="tabx" onclick="toast('Integrations page moved. We forgot where.')">Integrations</button>
-  <button class="tabx" onclick="toast('Settings are managed by a separate system. That system is also ArcherSFLUB.')">Settings</button>
+  <button class="tabx" onclick="openBroken('analytics','Analytics','Your enrollment analytics, if they existed.')">Analytics</button>
+  <button class="tabx" onclick="openBroken('insights','Insights','AI-powered, mostly powered by guessing.')">Insights <span class="mini">AI</span></button>
+  <button class="tabx" onclick="openBroken('activity','Activity','Everything you and others have done. Allegedly.')">Activity</button>
+  <button class="tabx" onclick="openBroken('automations','Automations','Set it and forget it. It forgot itself.')">Automations <span class="mini">BETA</span></button>
+  <button class="tabx" onclick="openBroken('reports','Reports','Generated nightly. Failed nightly.')">Reports</button>
+  <button class="tabx" onclick="openBroken('integrations','Integrations','Connect your other broken tools to this one.')">Integrations</button>
+  <button class="tabx" onclick="openBroken('settings','Settings','Change things. Nothing changes.')">Settings</button>
 </nav>
 
 <div id="migrate">You are viewing the <b>NEW EXPERIENCE</b> (partial rollout, 2024). Some widgets have not been migrated. Neither have some buttons.</div>
@@ -355,13 +372,13 @@ tr:last-child td{border-bottom:0}
     <button class="nv" data-v="quiver" onclick="nav('quiver')">🏹 My Quiver <span class="badge cartn">0</span></button>
     <button class="nv" data-v="checkout" onclick="nav('checkout')">💳 Firing Line</button>
     <div class="navlbl">Academics</div>
-    <button class="nv" disabled>Degree Audit <span class="lock">Q3</span></button>
-    <button class="nv" disabled>Transcripts <span class="lock">Q3</span></button>
-    <button class="nv" disabled>Advising <span class="lock">Q4</span></button>
-    <button class="nv" disabled>Range Analytics <span class="lock">2027</span></button>
+    <button class="nv" onclick="openBroken('audit','Degree Audit','Unlocks Q3. It is currently also Q3.')">Degree Audit <span class="lock">Q3</span></button>
+    <button class="nv" onclick="openBroken('transcripts','Transcripts','Unlocks Q3. Your grades are TBA either way.')">Transcripts <span class="lock">Q3</span></button>
+    <button class="nv" onclick="openBroken('advising','Advising','Unlocks Q4. Your adviser is unavailable regardless.')">Advising <span class="lock">Q4</span></button>
+    <button class="nv" onclick="openBroken('rangeanalytics','Range Analytics','Unlocks 2027. It is not 2027.')">Range Analytics <span class="lock">2027</span></button>
     <div class="navlbl">Account</div>
-    <button class="nv" onclick="toast('Billing is handled by a separate system. That system is also ArcherSFLUB.')">Billing <span class="badge">12</span></button>
-    <button class="nv" onclick="toast('Sign-out is unavailable. Your session will end on its own. It will not.')">Sign out</button>
+    <button class="nv" onclick="openBroken('billing','Billing','A separate system. Also ArcherSFLUB.')">Billing <span class="badge">12</span></button>
+    <button class="nv" onclick="openBroken('signout','Signing out','Your session will end on its own. It will not.')">Sign out</button>
   </div>
 
   <div class="navcard progwidget">
@@ -564,6 +581,19 @@ tr:last-child td{border-bottom:0}
   <div class="panel"><header><h2>Summary</h2></header><div class="pad" id="sumbox"></div></div>
 </div>
 
+<!-- ══════════ BROKEN FEATURE (shared) ══════════ -->
+<div class="view" id="broken">
+  <div class="crumb" id="brokencrumb">HOME / FEATURE</div>
+  <div class="head"><div><h1 id="brokentitle" style="color:var(--red)">This feature is unavailable</h1>
+    <p id="brokensub">It looked ready. It was not.</p></div></div>
+  <div class="panel"><div class="pad" style="text-align:center;padding:44px 20px">
+    <div style="font-size:34px;margin-bottom:10px">🏹💥</div>
+    <p class="sub" style="font-size:12.5px;margin-bottom:16px" id="brokenmsg">Loading failed.</p>
+    <button class="btn pri" onclick="retryBroken()">Try again</button>
+    <button class="btn sm ghost" onclick="nav('dash')" style="margin-left:8px">Back to Overview</button>
+  </div></div>
+</div>
+
 <!-- ══════════ CHECKOUT ══════════ -->
 <div class="view" id="checkout">
   <div class="crumb">HOME / ENROLLMENT / FIRING LINE</div>
@@ -680,7 +710,7 @@ function addBan(){var b=BANS[bi++%BANS.length],d=document.createElement('div');
   x.onclick=function(){d.remove();setTimeout(addBan,300);if(Math.random()<.55)setTimeout(addBan,700);};
   d.appendChild(x);$('banners').appendChild(d);}
 for(var i=0;i<3;i++)addBan();
-setInterval(function(){if($('banners').children.length<7)addBan();},12000);
+setInterval(function(){if($('banners').children.length<9)addBan();},8000);
 
 /* ═══ loading ═══ */
 var LM=['Drawing the bowstring…','Adjusting for crosswind…','Locating the target…','Target relocated — locating again…',
@@ -715,7 +745,7 @@ function toast(t){var d=document.createElement('div');d.className='toast';d.text
 var AMB=['Preferances saved.','Preferences reverted.','Sync complete.','Sync failed. Retrying.',
  'A course in your quiver changed sections.','Your adviser is now unavailble.','Tuition estimate updated.',
  'A schedule conflict was detected and ignored.','Session extended by 0 seconds.','Someone else is veiwing your quiver.'];
-setInterval(function(){if(Math.random()<.5)toast(AMB[Math.floor(Math.random()*AMB.length)])},8000);
+setInterval(function(){if(Math.random()<.7)toast(AMB[Math.floor(Math.random()*AMB.length)])},4500);
 
 /* ═══ nav ═══ */
 var cur='wiz';
@@ -808,6 +838,34 @@ rel.addEventListener('click',function(){var p=0;$('relstat').textContent='Arrow 
       setTimeout(function(){$('whoami').textContent=real||'Archer';paint('queue');runQueue();},800);}
     $('bar').style.width=Math.min(p,100)+'%';},110);});
 
+/* ═══ broken feature router (fills the "placeholder" buttons) ═══ */
+var brokenKey='',brokenTries=0;
+var BROKEN_LINES={
+ analytics:['Analytics failed to load.','Analytics loaded, then unloaded itself.','Analytics is analyzing why it failed.'],
+ insights:['Insights requires a plan upgrade you already have.','Insight engine returned an insight about itself: it is broken.','Still thinking. It will not stop thinking.'],
+ activity:['Activity feed timed out.','Activity feed returned activity from a different archer.','Activity feed is now activity-less.'],
+ automations:['Automations are in closed beta. The beta is closed to everyone, including you.','An automation just disabled this page.','Automating the retry. The retry failed automatically.'],
+ reports:['Tonight\'s report failed. So did last night\'s.','Report generated 0 pages successfully.','The report about the failed report also failed.'],
+ integrations:['Integrations page moved. We still don\'t know where.','Found the integrations page. It links back here.','404, but with extra steps.'],
+ settings:['Settings are managed by a separate system. That system is also ArcherSFLUB.','Your settings were reset to different wrong settings.','Settings saved to nowhere.'],
+ audit:['Degree Audit unlocks Q3. It is currently also Q3.','Audit engine audited itself and found nothing.','Your degree has been audited. Results: undefined.'],
+ transcripts:['Transcripts unlock Q3. All of your grades are TBA.','Transcript generated. It is blank.','Requested again. Still blank.'],
+ advising:['Your adviser is unavailable until 2028.','Adviser found. Adviser is also waiting in the queue.','Escalated to a senior adviser, who is the same adviser.'],
+ rangeanalytics:['Range Analytics unlocks in 2027. It is not 2027.','Analytics for a range that does not yet exist.','Recalculating a range that does not exist. Still nothing.'],
+ billing:['Billing balance could not be verified. A charge went through anyway.','Second charge applied while verifying the first.','Billing system billed itself. You are now owed money you will not receive.'],
+ signout:['Signing out…','Session extended instead of ending.','You have been signed out of a different account.']
+};
+function openBroken(key,title,sub){
+  brokenKey=key;brokenTries=0;
+  $('brokentitle').textContent=title;$('brokensub').textContent=sub;
+  confirmChain(function(){lag(function(){
+    brokenTries=1;$('brokenmsg').textContent=BROKEN_LINES[key][0];paint('broken');});});
+}
+function retryBroken(){lag(function(){
+  brokenTries=Math.min(brokenTries+1,BROKEN_LINES[brokenKey].length-1);
+  $('brokenmsg').textContent=BROKEN_LINES[brokenKey][brokenTries];});
+}
+
 /* ═══ pop-up ad ═══ */
 var POPADS=["You've won a free bowstring!",'Your accuracy rating qualifies you for a prize!',
  'One weird trick to skip the queue!','Claim your free arrows before they expire!'];
@@ -816,8 +874,19 @@ function showPopAd(){var el=$('popad');
   $('popadtext').textContent=POPADS[Math.floor(Math.random()*POPADS.length)];
   el.style.display='block';el.onclick=rick;}
 function closePopAd(){$('popad').style.display='none';}
-setTimeout(showPopAd,20000);
-setInterval(function(){if($('popad').style.display==='none'&&Math.random()<.6)showPopAd();},25000);
+setTimeout(showPopAd,10000);
+setInterval(function(){if($('popad').style.display==='none'&&Math.random()<.75)showPopAd();},16000);
+
+/* ═══ shared popover toggler ═══ */
+function togglePanel(id){
+  var open=$(id).style.display==='block';
+  ['notifpanel','quickpanel','acctpanel'].forEach(function(k){$(k).style.display='none';});
+  $(id).style.display=open?'none':'block';
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#bellbtn,#notifpanel,#avbtn,#acctpanel')&&!e.target.closest('[onclick*="quickpanel"]')&&!e.target.closest('#quickpanel'))
+    ['notifpanel','quickpanel','acctpanel'].forEach(function(k){if($(k))$(k).style.display='none';});
+});
 
 /* ═══ notification hydra ═══ */
 var notifCount=203;
